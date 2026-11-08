@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "phases": [
+    {
+      "id": "P00",
+      "title": "Product Scope and Requirements",
+      "description": "Define product scope, users, requirements, risks and project boundaries.",
+      "status": "Completed",
+      "stateNote": "Complete per current owner-provided baseline."
+    },
+    {
+      "id": "P01",
+      "title": "Research and Dataset Feasibility",
+      "description": "Evaluate dataset provenance, annotation quality, licensing, feasibility and approval evidence.",
+      "status": "In Progress",
+      "stateNote": "Open; dataset approval remains unresolved. No dataset is approved for training or preprocessing."
+    },
+    {
+      "id": "P02",
+      "title": "UI/UX Design",
+      "description": "Create and approve the product interface and interaction design.",
+      "status": "Completed",
+      "stateNote": "Design is locked per current owner-provided baseline."
+    },
+    {
+      "id": "P03",
+      "title": "Frontend Foundation",
+      "description": "Establish the Next.js frontend foundation and responsive, accessible UI structure.",
+      "status": "Completed",
+      "stateNote": "Completed — Final dev-server and dashboard QA complete for P03 Frontend Foundation. Dev-server timeout cause identified as an existing next dev server already holding the frontend .next dev lock on port 3000 ('Another next dev server is already running'), not a product defect or dependency issue. /project-tracker returns HTTP 200 on the running dev server. Real-browser QA passed: desktop layout (16 tasks, no horizontal overflow), mobile layout (390x844 viewport, no overflow), light theme bg rgb(248,249,255), dark theme bg rgb(9,11,20), phase/status/priority filters update task lists correctly (P03→1 task; Completed→P00,P02; High→6 tasks), task details expand showing execution history and verification evidence, zero console errors. Minimal fixes applied: restored root-layout inline theme script in <head> (Next.js dev warning resolved), unique keys for verification list items, UTC date formatting to prevent hydration mismatch."
+    },
+    {
+      "id": "P04",
+      "title": "Complete Frontend with Mock Data",
+      "description": "Complete the frontend preview and interactions without implying a connected model service.",
+      "status": "Completed",
+      "stateNote": "Completed — P04 tracker data/update, route, malformed-data and browser QA complete. Tracker data updates verified via documented update script: start/finish records appear in activity log and execution history; next task/recommendation updated on the live dashboard. Malformed or missing progress.json still fails safely - route returns HTTP 200 with a safe unavailable UI instead of crashing or exposing records. Real-browser QA passed (desktop layout, mobile layout, light/dark themes, phase/status/priority filters, task details with execution history and evidence, zero console errors). No authentication, GitHub sync, backend, database, API, or ML implemented; no records exposed publicly; nothing deployed."
+    },
+    {
+      "id": "P05",
+      "title": "Database Design",
+      "description": "Design and review the future persistence model. No database work has started.",
+      "status": "Not Started",
+      "stateNote": "Not started; requires explicit mentor direction."
+    },
+    {
+      "id": "P06",
+      "title": "Backend Foundation and API Contract",
+      "description": "Specify a future backend foundation and API contract. No backend work has started.",
+      "status": "Not Started",
+      "stateNote": "Not started; requires explicit mentor direction."
+    },
+    {
+      "id": "P07",
+      "title": "Backend and Database Integration",
+      "description": "Integrate future backend services and persistence. No integration has started.",
+      "status": "Not Started",
+      "stateNote": "Not started; requires explicit mentor direction."
+    },
+    {
+      "id": "P08",
+      "title": "Dataset Preparation and ML Data Foundations",
+      "description": "Establish authorized data foundations only after dataset evidence and approval gates pass.",
+      "status": "Not Started",
+      "stateNote": "Not started; dataset approval unresolved. No preprocessing or training is authorized."
+    },
+    {
+      "id": "P09",
+      "title": "NLP Preprocessing and Language Routing",
+      "description": "Develop and evaluate preprocessing and language routing after approval.",
+      "status": "Not Started",
+      "stateNote": "Not started; requires prior evidence and mentor approval."
+    },
+    {
+      "id": "P10",
+      "title": "Classical ML Training and Evaluation",
+      "description": "Train and evaluate approved classical baselines using a reviewed protocol.",
+      "status": "Not Started",
+      "stateNote": "Not started; no dataset is approved for training."
+    },
+    {
+      "id": "P11",
+      "title": "Calibration, Explainability and Benchmarking",
+      "description": "Evaluate calibration, explanations and benchmarks without equating predictions to truth.",
+      "status": "Not Started",
+      "stateNote": "Not started; depends on approved data and completed model evaluation."
+    },
+    {
+      "id": "P12",
+      "title": "Optional Transformer Experiment",
+      "description": "Consider a transformer experiment only if evidence and results justify it.",
+      "status": "Not Started",
+      "stateNote": "Not started; optional and not authorized."
+    },
+    {
+      "id": "P13",
+      "title": "ML, FastAPI and Frontend Integration",
+      "description": "Integrate separately validated ML, backend and frontend components after approval.",
+      "status": "Not Started",
+      "stateNote": "Not started; no backend or ML service is connected."
+    },
+    {
+      "id": "P14",
+      "title": "Testing, Security, Privacy and Performance",
+      "description": "Run integrated quality, security, privacy and performance verification.",
+      "status": "Not Started",
+      "stateNote": "Not started; belongs to a future approved product phase."
+    },
+    {
+      "id": "P15",
+      "title": "Deployment, Documentation and v1.0 Release",
+      "description": "Prepare deployment and release documentation; v1.0 requires explicit approval.",
+      "status": "Not Started",
+      "stateNote": "Not started; release approval is not granted."
+    }
+  ]
+}

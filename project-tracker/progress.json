@@ -1,0 +1,511 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "name": "VeriNews",
+    "status": "In Progress — awaiting mentor review",
+    "activePhaseIds": [
+      "P01"
+    ],
+    "nextTaskId": "P01",
+    "nextRecommendedTask": "Resolve the outstanding P01 dataset evidence and dataset-approval gate before any P05+ product work; await explicit mentor/owner approval. Do not start P05 or any other phase.",
+    "progressMethod": "Completed phase tasks divided by all 16 canonical phases; in-progress work does not count as complete."
+  },
+  "lifecycle": {
+    "mode": "Development",
+    "releaseApproval": {
+      "status": "Not Approved",
+      "approvedAt": null,
+      "approvedBy": null,
+      "evidenceRef": null
+    },
+    "currentVersion": null,
+    "releases": [],
+    "deployments": [],
+    "maintenanceItems": []
+  },
+  "tasks": [
+    {
+      "id": "P00",
+      "phaseId": "P00",
+      "title": "Product Scope and Requirements",
+      "description": "Establish VeriNews product scope, required behavior, constraints and non-goals.",
+      "status": "Completed",
+      "priority": "High",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": "Imported as complete from the owner-provided baseline; original completion timestamp was not supplied.",
+      "assignedCategory": "Product",
+      "verificationEvidence": [
+        "Current owner-provided tracker baseline marks P00 complete.",
+        "docs/project-scope.md",
+        "docs/functional-requirements.md",
+        "docs/non-functional-requirements.md"
+      ],
+      "relatedFiles": [
+        "docs/project-scope.md",
+        "docs/functional-requirements.md",
+        "docs/non-functional-requirements.md"
+      ],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": null
+    },
+    {
+      "id": "P01",
+      "phaseId": "P01",
+      "title": "Research and Dataset Feasibility",
+      "description": "Resolve dataset provenance, annotations, rights and approval evidence without treating research documentation as dataset approval.",
+      "status": "In Progress",
+      "priority": "High",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": null,
+      "assignedCategory": "Research",
+      "verificationEvidence": [
+        "P01 remains OPEN / AWAITING DATASET EVIDENCE AND MENTOR APPROVAL in docs/research/p01-f-dataset-evidence-decision-register.md.",
+        "Indic Zenodo archive and paper discrepancies and licensing conflict documented; training approval NOT APPROVED.",
+        "Current owner-provided baseline explicitly keeps dataset approval unresolved."
+      ],
+      "relatedFiles": [
+        "docs/phase-1-summary.md",
+        "docs/research/p01-f-dataset-evidence-decision-register.md",
+        "docs/research/p01-j-consolidated-provenance-rights-feasibility.md",
+        "docs/research/indic-zenodo-hindi-provenance-investigation.md"
+      ],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": "Dataset approval is unresolved; no dataset is approved for training or preprocessing. Await required evidence and mentor approval."
+    },
+    {
+      "id": "P02",
+      "phaseId": "P02",
+      "title": "UI/UX Design",
+      "description": "Complete and lock the approved VeriNews interface design without expanding scope into a redesign.",
+      "status": "Completed",
+      "priority": "High",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": "Imported as design-locked from the owner-provided baseline; original completion timestamp and design artifact reference were not supplied.",
+      "assignedCategory": "Design",
+      "verificationEvidence": [
+        "Current owner-provided tracker baseline says P02 design is locked."
+      ],
+      "relatedFiles": [],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": null
+    },
+    {
+      "id": "P03",
+      "phaseId": "P03",
+      "title": "Frontend Foundation",
+      "description": "Maintain the existing Next.js 16 App Router frontend foundation and complete the remaining browser QA gate.",
+      "status": "Completed",
+      "priority": "High",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T14:50:01.714Z",
+      "completedAt": "2026-11-08T14:50:01.714Z",
+      "completionTimestampNote": null,
+      "assignedCategory": "Frontend / QA",
+      "verificationEvidence": [
+        "Current owner-provided baseline: implementation is in place; final browser QA remains pending.",
+        "Prior OpenCode QA report recorded typecheck, lint and build as passing; exact execution timestamp was not preserved.",
+        "No real-browser viewport or interaction checks were recorded.",
+        "project-tracker/execution-history/exec-20261108142956314-d717ab69.json"
+      ],
+      "relatedFiles": [
+        "frontend/src/app/layout.tsx",
+        "frontend/src/app/globals.css",
+        "frontend/src/components/NavBar.tsx",
+        "frontend/src/components/ThemeToggle.tsx",
+        "frontend/src/app/project-tracker/tracker-dashboard.tsx"
+      ],
+      "executionReportRef": "project-tracker/execution-history/exec-20261108142956314-d717ab69.json",
+      "gitCommitRef": null,
+      "blockerDetails": null
+    },
+    {
+      "id": "P04",
+      "phaseId": "P04",
+      "title": "Complete Frontend with Mock Data",
+      "description": "Finish and verify the frontend research preview without fake predictions, backend calls or fabricated history.",
+      "status": "Completed",
+      "priority": "High",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T14:50:19.019Z",
+      "completedAt": "2026-11-08T14:50:19.019Z",
+      "completionTimestampNote": null,
+      "assignedCategory": "Frontend / QA",
+      "verificationEvidence": [
+        "Current owner-provided baseline: implementation is in place; final browser QA remains pending.",
+        "Prior OpenCode QA report recorded typecheck, lint and build as passing; exact execution timestamp was not preserved.",
+        "Analyzer, navigation and modal runtime interactions have not been browser-verified.",
+        "project-tracker/execution-history/exec-20261108143000200-9052b3f5.json"
+      ],
+      "relatedFiles": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/Analyzer.tsx",
+        "frontend/src/components/AnalysisResult.tsx",
+        "frontend/src/components/InfoModal.tsx",
+        "frontend/src/components/HeroIllustration.tsx",
+        "frontend/src/app/layout.tsx",
+        "frontend/src/app/project-tracker/tracker-dashboard.tsx"
+      ],
+      "executionReportRef": "project-tracker/execution-history/exec-20261108143000200-9052b3f5.json",
+      "gitCommitRef": null,
+      "blockerDetails": null
+    },
+    {
+      "id": "P05",
+      "phaseId": "P05",
+      "title": "Database Design",
+      "description": "Design future storage only after explicit phase authorization; no database work is included here.",
+      "status": "Not Started",
+      "priority": "Medium",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": null,
+      "assignedCategory": "Architecture",
+      "verificationEvidence": [],
+      "relatedFiles": [],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": "Not started. Requires explicit mentor direction."
+    },
+    {
+      "id": "P06",
+      "phaseId": "P06",
+      "title": "Backend Foundation and API Contract",
+      "description": "Establish a future backend foundation and API contract only after authorization.",
+      "status": "Not Started",
+      "priority": "Medium",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": null,
+      "assignedCategory": "Backend",
+      "verificationEvidence": [],
+      "relatedFiles": [],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": "Not started. No backend work is part of the tracker implementation."
+    },
+    {
+      "id": "P07",
+      "phaseId": "P07",
+      "title": "Backend and Database Integration",
+      "description": "Integrate backend and persistence after their independent approval and verification.",
+      "status": "Not Started",
+      "priority": "Medium",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": null,
+      "assignedCategory": "Backend",
+      "verificationEvidence": [],
+      "relatedFiles": [],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": "Not started. Depends on approved P05 and P06 work."
+    },
+    {
+      "id": "P08",
+      "phaseId": "P08",
+      "title": "Dataset Preparation and ML Data Foundations",
+      "description": "Prepare only approved datasets with documented provenance and rights.",
+      "status": "Not Started",
+      "priority": "High",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": null,
+      "assignedCategory": "Data / ML",
+      "verificationEvidence": [],
+      "relatedFiles": [],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": "Not started. No dataset is approved; do not download, preprocess or train without explicit approval."
+    },
+    {
+      "id": "P09",
+      "phaseId": "P09",
+      "title": "NLP Preprocessing and Language Routing",
+      "description": "Develop language-aware preprocessing after data foundations and approval gates pass.",
+      "status": "Not Started",
+      "priority": "Medium",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": null,
+      "assignedCategory": "NLP",
+      "verificationEvidence": [],
+      "relatedFiles": [],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": "Not started. Depends on approved data and explicit mentor direction."
+    },
+    {
+      "id": "P10",
+      "phaseId": "P10",
+      "title": "Classical ML Training and Evaluation",
+      "description": "Train and evaluate approved classical baselines with a reviewed protocol.",
+      "status": "Not Started",
+      "priority": "Medium",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": null,
+      "assignedCategory": "ML",
+      "verificationEvidence": [],
+      "relatedFiles": [],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": "Not started. No training dataset is approved."
+    },
+    {
+      "id": "P11",
+      "phaseId": "P11",
+      "title": "Calibration, Explainability and Benchmarking",
+      "description": "Evaluate calibration and explanations and report benchmark limitations honestly.",
+      "status": "Not Started",
+      "priority": "Medium",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": null,
+      "assignedCategory": "ML / Evaluation",
+      "verificationEvidence": [],
+      "relatedFiles": [],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": "Not started. Depends on approved and evaluated model work."
+    },
+    {
+      "id": "P12",
+      "phaseId": "P12",
+      "title": "Optional Transformer Experiment",
+      "description": "Assess an optional transformer experiment only if justified by approved research results.",
+      "status": "Not Started",
+      "priority": "Low",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": null,
+      "assignedCategory": "ML Research",
+      "verificationEvidence": [],
+      "relatedFiles": [],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": "Not started; optional and requires explicit approval."
+    },
+    {
+      "id": "P13",
+      "phaseId": "P13",
+      "title": "ML, FastAPI and Frontend Integration",
+      "description": "Integrate independently validated ML and backend components with the frontend.",
+      "status": "Not Started",
+      "priority": "Medium",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": null,
+      "assignedCategory": "Integration",
+      "verificationEvidence": [],
+      "relatedFiles": [],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": "Not started. No API or ML service is connected."
+    },
+    {
+      "id": "P14",
+      "phaseId": "P14",
+      "title": "Testing, Security, Privacy and Performance",
+      "description": "Verify integrated quality, security, privacy and performance claims before release.",
+      "status": "Not Started",
+      "priority": "Medium",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": null,
+      "assignedCategory": "QA / Security",
+      "verificationEvidence": [],
+      "relatedFiles": [],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": "Not started; future phase."
+    },
+    {
+      "id": "P15",
+      "phaseId": "P15",
+      "title": "Deployment, Documentation and v1.0 Release",
+      "description": "Prepare deployment and v1.0 documentation; release only after explicit approval.",
+      "status": "Not Started",
+      "priority": "Medium",
+      "createdAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "completedAt": null,
+      "completionTimestampNote": null,
+      "assignedCategory": "Release",
+      "verificationEvidence": [],
+      "relatedFiles": [],
+      "executionReportRef": null,
+      "gitCommitRef": null,
+      "blockerDetails": "Not started. No release approval is recorded."
+    }
+  ],
+  "verificationResults": [
+    {
+      "name": "npm run typecheck",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T13:57:04.270Z",
+      "source": "Imported from the preceding OpenCode final frontend QA report; exact execution timestamp was not preserved."
+    },
+    {
+      "name": "npm run lint",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T13:57:04.270Z",
+      "source": "Imported from the preceding OpenCode final frontend QA report; exact execution timestamp was not preserved."
+    },
+    {
+      "name": "npm run build",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T13:57:04.270Z",
+      "source": "Imported from the preceding OpenCode final frontend QA report; exact execution timestamp was not preserved."
+    },
+    {
+      "name": "Real-browser visual and interaction QA",
+      "result": "Pending",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T13:57:04.270Z",
+      "source": "No browser automation was available in the preceding QA environment; no browser test is claimed."
+    },
+    {
+      "name": "node scripts/validate_project_tracker.mjs",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:23:18.826Z",
+      "source": "Executed in the current tracker implementation session; validated 16 phases, 16 unique tasks, 3 activity records and 2 execution records. Exact command execution time was not separately recorded."
+    },
+    {
+      "name": "node scripts/test_project_tracker.mjs",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:25:04.200Z",
+      "source": "Executed in the current tracker implementation session against disposable temp fixtures: task start/finish, blockers, counts/filter data, invalid/missing JSON, incomplete-release rejection, approved release and preserved archive copy. Exact command execution time was not separately recorded."
+    },
+    {
+      "name": "npm run typecheck",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:23:18.826Z",
+      "source": "Current tracker implementation session; tsc --noEmit exited successfully. Exact command execution time was not separately recorded."
+    },
+    {
+      "name": "npm run lint",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:23:18.826Z",
+      "source": "Current tracker implementation session; eslint . exited successfully. Exact command execution time was not separately recorded."
+    },
+    {
+      "name": "npm run build",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:23:18.826Z",
+      "source": "Current tracker implementation session; optimized Next.js 16.4.5 build completed and /project-tracker was dynamic. Exact command execution time was not separately recorded."
+    },
+    {
+      "name": "Production GET /project-tracker",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:23:18.826Z",
+      "source": "Fresh production server on port 3005 returned HTTP 200 (104166 response bytes) with dashboard route rendered. Exact request time was not separately recorded."
+    },
+    {
+      "name": "Fresh development server smoke check",
+      "result": "Blocked",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:23:18.826Z",
+      "source": "Fresh dev server attempt on port 3004 did not respond before the 60-second command timeout. A pre-existing server answered on port 3000, but was not treated as a fresh development verification; exact attempt time was not separately recorded."
+    },
+    {
+      "name": "npm run typecheck",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:50:01.714Z",
+      "source": "OpenCode execution EXEC-20261108142956314-D717AB69 — tsc --noEmit exited 0"
+    },
+    {
+      "name": "npm run lint",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:50:01.714Z",
+      "source": "OpenCode execution EXEC-20261108142956314-D717AB69 — eslint . exited 0"
+    },
+    {
+      "name": "npm run build",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:50:01.714Z",
+      "source": "OpenCode execution EXEC-20261108142956314-D717AB69 — next build succeeded; /project-tracker renders as dynamic route"
+    },
+    {
+      "name": "GET http://localhost:3000/project-tracker",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:50:01.714Z",
+      "source": "OpenCode execution EXEC-20261108142956314-D717AB69 — HTTP 200, dashboard HTML renders"
+    },
+    {
+      "name": "npm run typecheck",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:50:19.019Z",
+      "source": "OpenCode execution EXEC-20261108143000200-9052B3F5 — tsc --noEmit exited 0"
+    },
+    {
+      "name": "npm run lint",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:50:19.019Z",
+      "source": "OpenCode execution EXEC-20261108143000200-9052B3F5 — eslint . exited 0"
+    },
+    {
+      "name": "npm run build",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:50:19.019Z",
+      "source": "OpenCode execution EXEC-20261108143000200-9052B3F5 — next build succeeded; /project-tracker renders as dynamic route"
+    },
+    {
+      "name": "GET http://localhost:3000/project-tracker",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:50:19.019Z",
+      "source": "OpenCode execution EXEC-20261108143000200-9052B3F5 — HTTP 200, dashboard HTML renders"
+    },
+    {
+      "name": "node scripts/validate_project_tracker.mjs",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-08T14:50:19.019Z",
+      "source": "OpenCode execution EXEC-20261108143000200-9052B3F5 — 16 phases, 16 unique tasks, valid tracker records"
+    }
+  ],
+  "gitSync": {
+    "status": "Unavailable",
+    "observedAt": "2026-11-08T14:50:19.019Z",
+    "repositoryDetected": false,
+    "remote": null,
+    "headCommit": null,
+    "workflowChecks": [],
+    "explanation": "No Git repository was detected; commit and workflow synchronization are unavailable. Local tracker updates remain enabled."
+  }
+}
