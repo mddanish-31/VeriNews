@@ -39,3 +39,4 @@ print(f"   Missing context items: {data.get('missing_context', [])}")
 # Check whether deterministic fallback was active
 fallback_used = any("deterministic" in str(ctx).lower() for ctx in data.get("missing_context", []))
 print(f"\n3. Fallback used: {fallback_used}")
+
