@@ -1,0 +1,8 @@
+id,title,text,language,label
+inv-001,Missing Text Title,"",en,1
+inv-002,Short Text,"Too short.",en,0
+inv-003,Unsupported Language,"Le gouvernement a annoncé de nouvelles mesures budgétaires pour la prochaine année fiscale.",fr,1
+inv-004,Missing Label,"The regional transportation authority scheduled railway maintenance for the upcoming weekend, advising passengers to check timetables.",en,
+inv-005,Unknown Label Value,"The local university opened registration for public evening lectures on renewable energy and sustainable agriculture.",en,invalid_category_99
+inv-006,Hindi Script Mismatch,"Yeh khabar Roman lipi me likhi gayi hai aur isme koi Devanagari akshar nahi hai par language hi likha hai.",hi,1
+

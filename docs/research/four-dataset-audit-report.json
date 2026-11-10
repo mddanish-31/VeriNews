@@ -1,0 +1,147 @@
+{
+  "welfake": {
+    "dataset": "WELFake",
+    "file_path": "C:\\Users\\mddan\\Desktop\\VeriNews\\data\\raw\\welfake\\WELFake_Dataset.csv",
+    "file_size_mb": 233.73,
+    "headers": [
+      "",
+      "title",
+      "text",
+      "label"
+    ],
+    "total_records": 72134,
+    "usable_unique_records": 62439,
+    "exact_duplicates": 8567,
+    "missing_text": 783,
+    "missing_title": 558,
+    "short_text_lt_50": 345,
+    "label_distribution": {
+      "0": 35028,
+      "1": 37106
+    },
+    "text_length": {
+      "min": 50,
+      "max": 142961,
+      "mean": 3330.0
+    },
+    "license": "CC BY 4.0 on Zenodo (Record 4561253)",
+    "decision": "BLOCKED — INSUFFICIENT EVIDENCE (UNRESOLVED LABEL INVERSION)",
+    "reason": "Contradiction between Zenodo text (0=Fake, 1=Real) and Zenodo summary counts (35,028 Real, 37,106 Fake vs 35,028 '0's and 37,106 '1's in CSV). Training risks creating an inverted credibility model."
+  },
+  "isot": {
+    "dataset": "ISOT",
+    "file_paths": [
+      "C:\\Users\\mddan\\Desktop\\VeriNews\\data\\raw\\isot\\News-_dataset\\Fake.csv",
+      "C:\\Users\\mddan\\Desktop\\VeriNews\\data\\raw\\isot\\News-_dataset\\True.csv"
+    ],
+    "file_size_mb": 110.98,
+    "headers": [
+      "title",
+      "text",
+      "subject",
+      "date"
+    ],
+    "total_records": 44898,
+    "usable_unique_records": 38498,
+    "exact_duplicates": 5563,
+    "missing_or_short_text": 837,
+    "label_distribution": {
+      "credible (True.csv)": 21190,
+      "unreliable (Fake.csv)": 17308
+    },
+    "subjects": {
+      "politicsNews": 11272,
+      "worldnews": 10145,
+      "News": 9050,
+      "politics": 6841,
+      "Government News": 1570,
+      "left-news": 4459,
+      "US_News": 783,
+      "Middle-east": 778
+    },
+    "text_length": {
+      "min": 50,
+      "max": 51793,
+      "mean": 2452.2
+    },
+    "license": "University of Victoria (UVic) Academic Research Terms",
+    "decision": "APPROVED FOR ENGLISH FULL-ARTICLE BASELINE (WITH LEAKAGE MITIGATION)",
+    "leakage_mitigation": "Stripped Reuters dateline prefixes to avoid trivial publisher cue learning."
+  },
+  "tallip": {
+    "dataset": "TaLLIP Hindi",
+    "file_paths": [
+      "C:\\Users\\mddan\\Desktop\\VeriNews\\data\\raw\\tallip\\TaLLIP_Dataset-main\\TaLLIP_Dataset-main\\Hindi\\Train\\train_Hindi_Data_Complete_FakeNews.txt",
+      "C:\\Users\\mddan\\Desktop\\VeriNews\\data\\raw\\tallip\\TaLLIP_Dataset-main\\TaLLIP_Dataset-main\\Hindi\\Test\\test_Hindi_Data_Complete_FakeNews.txt"
+    ],
+    "file_size_mb": 1.17,
+    "headers": [
+      "Domain",
+      "Topic",
+      "News",
+      "Label"
+    ],
+    "total_records": 980,
+    "usable_unique_records": 950,
+    "exact_duplicates": 30,
+    "train_samples": 576,
+    "test_samples": 374,
+    "label_distribution": {
+      "credible (Legit)": 490,
+      "unreliable (Fake)": 460
+    },
+    "domains": {
+      "Sports": 80,
+      "Celebrity": 500,
+      "Entertainment": 80,
+      "Technology": 80,
+      "Education": 80,
+      "Business": 80,
+      "Politics": 80
+    },
+    "text_length": {
+      "min": 0,
+      "max": 1864,
+      "mean": 385.7
+    },
+    "license": "ACM-TALLIP Academic Research (IIT Hyderabad / IIT Patna, 2021)",
+    "decision": "APPROVED FOR HINDI BASELINE TRAINING",
+    "reason": "Verified Devanagari Hindi text, balanced labels, domain tags, author split available."
+  },
+  "ifnd": {
+    "dataset": "IFND",
+    "file_path": "C:\\Users\\mddan\\Desktop\\VeriNews\\data\\raw\\ifnd\\IFND.csv\\IFND.csv",
+    "file_size_mb": 11.13,
+    "headers": [
+      "id",
+      "Statement",
+      "Image",
+      "Web",
+      "Category",
+      "Date",
+      "Label"
+    ],
+    "total_records": 56714,
+    "usable_unique_records": 50950,
+    "exact_duplicates": 5762,
+    "label_distribution": {
+      "credible (TRUE)": 33683,
+      "unreliable (Fake)": 17267
+    },
+    "top_categories": {
+      "GOVERNMENT": 10923,
+      "VIOLENCE": 10578,
+      "COVID-19": 8710,
+      "POLITICS": 8670,
+      "ELECTION": 8396
+    },
+    "text_length": {
+      "min": 15,
+      "max": 348,
+      "mean": 80.2
+    },
+    "license": "CC BY 4.0 (Mendeley Data / Kar et al., 2021)",
+    "decision": "APPROVED FOR INDIAN NEWS HEADLINE BENCHMARK (SEPARATE FROM FULL ARTICLES)",
+    "notes": "Short statements/headlines (avg 80 chars); kept separate to prevent length/domain collapse."
+  }
+}

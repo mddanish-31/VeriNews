@@ -1,24 +1,187 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { NavBar } from './components/NavBar'
 import { HeroIllustration } from './components/HeroIllustration'
 import { Analyzer } from './components/Analyzer'
+import { AnalysisResult } from './components/AnalysisResult'
 import { HistoryItem } from './components/HistoryItem'
 import { Icon } from './components/Icon'
 import { InfoModal, type ModalType } from './components/InfoModal'
-import type { HistoryEntryData } from './types'
+import type { AnalysisResultData, HistoryEntryData, InputType, SupportedLanguage } from './types'
+
+export function resolveApiBase(): string {
+  const envUrl = process.env.NEXT_PUBLIC_API_URL
+  if (envUrl && envUrl.trim()) {
+    return envUrl.trim().replace(/\/api\/?$/, '').replace(/\/+$/, '')
+  }
+  if (typeof window !== 'undefined' && window.location.hostname === '127.0.0.1') {
+    return 'http://127.0.0.1:8000'
+  }
+  return 'http://localhost:8000'
+}
 
 export default function App() {
   const [notice, setNotice] = useState('')
   const [activeModal, setActiveModal] = useState<ModalType>(null)
   const [historyEntries] = useState<HistoryEntryData[]>([])
+  const [analysisResult, setAnalysisResult] = useState<AnalysisResultData | null>(null)
+  const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const latestRequestId = useRef(0)
+
+  const handleClear = () => {
+    latestRequestId.current++
+    setNotice('')
+    setAnalysisResult(null)
+    setIsAnalyzing(false)
+  }
 
   const handleAnalyzeUnavailable = () => {
     setNotice(
       'The machine learning analysis service is not connected yet. No prediction was generated.'
     )
     window.setTimeout(() => setNotice(''), 7000)
+  }
+
+  const handleAnalyze = async (
+    input: { text?: string; url?: string; inputType?: InputType; language?: SupportedLanguage } | string,
+    fallbackLanguage?: SupportedLanguage
+  ) => {
+    const thisRequestId = ++latestRequestId.current
+    setIsAnalyzing(true)
+    setNotice('')
+    setAnalysisResult(null)
+
+    const apiBase = resolveApiBase()
+    let requestPayload: Record<string, unknown>
+
+    if (typeof input === 'string') {
+      requestPayload = {
+        text: input,
+        input_type: 'headline',
+        language_hint: fallbackLanguage || 'auto',
+      }
+    } else {
+      requestPayload = {
+        input_type: input.inputType || 'headline',
+        text: input.text || '',
+        url: input.url || null,
+        language_hint: input.language || fallbackLanguage || 'auto',
+      }
+    }
+
+    const fetchOptions: RequestInit = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestPayload),
+    }
+
+    try {
+      let response: Response
+      try {
+        // Try dedicated evidence-assisted verification endpoint first
+        response = await fetch(`${apiBase}/api/verify`, fetchOptions)
+        // If older server or mock returns 404 for /api/verify, fallback to /api/predict
+        if (response.status === 404) {
+          response = await fetch(`${apiBase}/api/predict`, fetchOptions)
+        }
+      } catch (primaryErr) {
+        // Localhost/127.0.0.1 dual-stack fallback when not explicitly configured
+        const fallbackHost = apiBase.includes('localhost') ? 'http://127.0.0.1:8000' : 'http://localhost:8000'
+        try {
+          response = await fetch(`${fallbackHost}/api/verify`, fetchOptions)
+          if (response.status === 404) {
+            response = await fetch(`${fallbackHost}/api/predict`, fetchOptions)
+          }
+        } catch {
+          throw primaryErr
+        }
+      }
+
+      if (thisRequestId !== latestRequestId.current) {
+        return
+      }
+
+      if (response.ok) {
+        const data = await response.json()
+
+        // Evidence-assisted verification mapping
+        if (data.status) {
+          setAnalysisResult({
+            status: data.status,
+            summary: data.summary,
+            claimChecked: data.claim_checked,
+            explanation: data.explanation,
+            supportingEvidence: data.supporting_evidence || [],
+            contradictoryEvidence: data.contradictory_evidence || [],
+            missingContext: data.missing_context || [],
+            sources: data.sources || [],
+            limitations: data.limitations || [],
+            inputType: data.input_type,
+            extractedHeadline: data.extracted_headline,
+            prediction: data.prediction_label || data.status,
+            confidence:
+              data.confidence_score !== null && typeof data.confidence_score === 'number'
+                ? Math.round(data.confidence_score * 100)
+                : null,
+            confidenceTier: data.confidence_tier,
+            detectedLanguage: data.language_name,
+            influentialTokens: data.influential_tokens || [],
+            disclaimer: data.disclaimer,
+            modelVersion: data.model_version,
+            latencyMs: data.latency_ms,
+          })
+        } else {
+          // Legacy prediction format fallback
+          const isUnclassifiable =
+            data.prediction_label === 'Unclassifiable' || data.is_credible === null
+          const mappedPrediction = isUnclassifiable
+            ? 'Unclassifiable'
+            : data.prediction_label || (data.is_credible ? 'Credible' : 'Unreliable')
+          const confidencePct =
+            isUnclassifiable || typeof data.confidence_score !== 'number'
+              ? null
+              : Math.round(data.confidence_score * 100)
+
+          setAnalysisResult({
+            prediction: mappedPrediction,
+            confidence: confidencePct,
+            confidenceTier: data.confidence_tier,
+            detectedLanguage: data.language_name,
+            explanation: isUnclassifiable
+              ? 'The submitted headline contains out-of-domain vocabulary that cannot be classified with statistical reliability.'
+              : `Statistical pattern detected by the model (${data.model_version || 'candidate model'}).`,
+            influentialTokens: data.influential_tokens || [],
+            disclaimer: data.disclaimer,
+            modelVersion: data.model_version,
+            latencyMs: data.latency_ms,
+          })
+        }
+      } else {
+        const errData = await response.json().catch(() => null)
+        const errMsg =
+          (typeof errData?.detail === 'string'
+            ? errData.detail
+            : Array.isArray(errData?.detail)
+              ? errData.detail.map((e: { msg?: string }) => e.msg || JSON.stringify(e)).join('; ')
+              : errData?.detail ? JSON.stringify(errData.detail) : null) ||
+          `The analysis service returned status ${response.status}. No verification was generated.`
+        setNotice(errMsg)
+      }
+    } catch {
+      if (thisRequestId !== latestRequestId.current) {
+        return
+      }
+      setNotice(
+        'Unable to connect to the VeriNews backend service. Please verify that the local backend server is running on port 8000.'
+      )
+    } finally {
+      if (thisRequestId === latestRequestId.current) {
+        setIsAnalyzing(false)
+      }
+    }
   }
 
   return (
@@ -64,7 +227,7 @@ export default function App() {
 
                 {/* Subtitle / Description */}
                 <p className="text-base sm:text-lg text-content-secondary max-w-xl leading-relaxed mb-8">
-                  A research-based tool that analyzes the language and patterns in news articles to
+                  A research-based tool that analyzes linguistic patterns in news headlines and claim statements to
                   help you spot potential misinformation in English and Hindi.
                 </p>
 
@@ -199,9 +362,19 @@ export default function App() {
             )}
 
             {/* Main Interactive Analyzer Card */}
-            <Analyzer onAnalyzeUnavailable={handleAnalyzeUnavailable} />
+            <Analyzer
+              onAnalyze={handleAnalyze}
+              onAnalyzeUnavailable={handleAnalyzeUnavailable}
+              onClear={handleClear}
+              isAnalyzing={isAnalyzing}
+            />
 
-            {/* Optional Analysis Result (if result exists) */}
+            {/* Analysis Result */}
+            {analysisResult && (
+              <div className="mt-8">
+                <AnalysisResult result={analysisResult} />
+              </div>
+            )}
             {/* Trust and Transparency Strip */}
             <div className="mt-12 pt-10 border-t border-border grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
               {/* Item 1 */}
@@ -212,7 +385,7 @@ export default function App() {
                 <div>
                   <h4 className="font-semibold text-sm text-content-primary">Research-driven</h4>
                   <p className="text-xs text-content-secondary mt-0.5 leading-relaxed">
-                    Designed around established NLP research and transparent evaluation principles.
+                    Designed around calibrated NLP classifiers and transparent feature-level attribution.
                   </p>
                 </div>
               </div>
@@ -223,9 +396,9 @@ export default function App() {
                   <Icon name="eye" className="w-4.5 h-4.5" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm text-content-primary">Transparent</h4>
+                  <h4 className="font-semibold text-sm text-content-primary">Headline Pattern Assessment</h4>
                   <p className="text-xs text-content-secondary mt-0.5 leading-relaxed">
-                    Clear about this preview’s limitations; the analysis service is not connected.
+                    Experimental statistical headline classification; not definitive fact-checking.
                   </p>
                 </div>
               </div>
@@ -236,9 +409,9 @@ export default function App() {
                   <Icon name="lock" className="w-4.5 h-4.5" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm text-content-primary">Preview behavior</h4>
+                  <h4 className="font-semibold text-sm text-content-primary">Zero Content Retention</h4>
                   <p className="text-xs text-content-secondary mt-0.5 leading-relaxed">
-                    This frontend preview does not submit article text to a backend service.
+                    Headlines and statements are evaluated transiently. Text and tokens are never stored in the database.
                   </p>
                 </div>
               </div>

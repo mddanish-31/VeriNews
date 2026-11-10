@@ -1,0 +1,317 @@
+{
+  "isot_leakage_and_generalization": {
+    "leakage_statistics": {
+      "total_unique_records": 38498,
+      "credible_records": 21190,
+      "unreliable_records": 17308,
+      "subjects": {
+        "politicsNews": 11272,
+        "worldnews": 10145,
+        "News": 9050,
+        "politics": 6841,
+        "Government News": 1570,
+        "left-news": 4459,
+        "US_News": 783,
+        "Middle-east": 778
+      },
+      "residual_reuters_in_credible": 4995,
+      "residual_reuters_in_credible_pct": 23.57,
+      "residual_reuters_in_unreliable": 209,
+      "residual_reuters_in_unreliable_pct": 1.21
+    },
+    "out_of_subject_evaluation": {
+      "train_subjects": [
+        "politicsNews",
+        "politics",
+        "Government News"
+      ],
+      "test_subjects": [
+        "worldnews",
+        "News",
+        "left-news"
+      ],
+      "train_samples": 14802,
+      "test_samples": 6000,
+      "logistic_regression": {
+        "accuracy": 0.9615,
+        "macro_f1": 0.9615,
+        "macro_precision": 0.9624,
+        "macro_recall": 0.9615,
+        "confusion_matrix": [
+          [
+            2820,
+            180
+          ],
+          [
+            51,
+            2949
+          ]
+        ]
+      },
+      "linear_svm": {
+        "accuracy": 0.9775,
+        "macro_f1": 0.9775,
+        "macro_precision": 0.978,
+        "macro_recall": 0.9775,
+        "confusion_matrix": [
+          [
+            2886,
+            114
+          ],
+          [
+            21,
+            2979
+          ]
+        ]
+      }
+    }
+  },
+  "ifnd_leakage_and_generalization": {
+    "total_publishers": 29,
+    "exclusive_publishers": {
+      "DNAINDIA": "100% Credible",
+      "FACTLY": "100% Credible",
+      "INDIANEXPRESS": "100% Credible",
+      "INDUSTANTIMES": "100% Credible",
+      "NDTV": "100% Credible",
+      "THESTATESMAN": "100% Credible",
+      "TIMESNOW": "100% Credible",
+      "THESTATEMAN": "100% Credible",
+      "TRIBUNEINDIA": "100% Credible",
+      "ENGLISHTRIBUNE": "100% Credible",
+      "CNN": "100% Credible",
+      "DAPAAN": "100% Credible",
+      "WAHSARKAR": "100% Credible",
+      "BSMEDIA": "100% Credible",
+      "BOOMLIVE": "100% Unreliable",
+      "DIGITEYE": "100% Unreliable",
+      "AFP": "100% Unreliable",
+      "FACTCRESCENDO": "100% Unreliable",
+      "ALT": "100% Unreliable",
+      "THELOGICALINDIA": "100% Unreliable",
+      "FACTCHECKER": "100% Unreliable",
+      "THELOGICALINDIAN": "100% Unreliable",
+      "ONEINDIA": "100% Unreliable",
+      "AUGMENT": "100% Unreliable"
+    },
+    "publisher_grouped_evaluation": {
+      "test_publishers": [
+        "THESTATESMAN",
+        "THEPRINT",
+        "NEWSMOBILE",
+        "BOOMLIVE"
+      ],
+      "train_samples": 20000,
+      "test_samples": 5000,
+      "logistic_regression": {
+        "accuracy": 0.9464,
+        "macro_f1": 0.9464,
+        "macro_precision": 0.9464,
+        "macro_recall": 0.9464,
+        "confusion_matrix": [
+          [
+            2378,
+            122
+          ],
+          [
+            146,
+            2354
+          ]
+        ]
+      },
+      "linear_svm": {
+        "accuracy": 0.9344,
+        "macro_f1": 0.9344,
+        "macro_precision": 0.9349,
+        "macro_recall": 0.9344,
+        "confusion_matrix": [
+          [
+            2294,
+            206
+          ],
+          [
+            122,
+            2378
+          ]
+        ]
+      }
+    },
+    "category_grouped_evaluation": {
+      "train_categories": [
+        "POLITICS",
+        "GOVERNMENT",
+        "VIOLENCE"
+      ],
+      "test_categories": [
+        "COVID-19",
+        "ELECTION"
+      ],
+      "train_samples": 12000,
+      "test_samples": 5000,
+      "logistic_regression": {
+        "accuracy": 0.8812,
+        "macro_f1": 0.881,
+        "confusion_matrix": [
+          [
+            2299,
+            201
+          ],
+          [
+            393,
+            2107
+          ]
+        ]
+      },
+      "linear_svm": {
+        "accuracy": 0.8594,
+        "macro_f1": 0.8594,
+        "confusion_matrix": [
+          [
+            2157,
+            343
+          ],
+          [
+            360,
+            2140
+          ]
+        ]
+      }
+    }
+  },
+  "hindi_baseline_improvement": {
+    "train_samples": 576,
+    "test_samples": 374,
+    "cross_validation_results": {
+      "word_ngram_1_2": {
+        "lr_c1.0": {
+          "cv_mean_f1": 0.5613,
+          "cv_std_f1": 0.0445,
+          "cv_mean_accuracy": 0.5625
+        },
+        "lr_c2.0": {
+          "cv_mean_f1": 0.5575,
+          "cv_std_f1": 0.0493,
+          "cv_mean_accuracy": 0.559
+        },
+        "svm_c0.5": {
+          "cv_mean_f1": 0.5662,
+          "cv_std_f1": 0.0391,
+          "cv_mean_accuracy": 0.5677
+        },
+        "svm_c1.0": {
+          "cv_mean_f1": 0.5571,
+          "cv_std_f1": 0.0379,
+          "cv_mean_accuracy": 0.559
+        }
+      },
+      "char_ngram_2_5": {
+        "lr_c1.0": {
+          "cv_mean_f1": 0.6208,
+          "cv_std_f1": 0.0496,
+          "cv_mean_accuracy": 0.6215
+        },
+        "lr_c2.0": {
+          "cv_mean_f1": 0.6204,
+          "cv_std_f1": 0.0432,
+          "cv_mean_accuracy": 0.6215
+        },
+        "svm_c0.5": {
+          "cv_mean_f1": 0.6137,
+          "cv_std_f1": 0.0496,
+          "cv_mean_accuracy": 0.6146
+        },
+        "svm_c1.0": {
+          "cv_mean_f1": 0.6123,
+          "cv_std_f1": 0.0438,
+          "cv_mean_accuracy": 0.6128
+        }
+      },
+      "char_ngram_3_6": {
+        "lr_c1.0": {
+          "cv_mean_f1": 0.6171,
+          "cv_std_f1": 0.0484,
+          "cv_mean_accuracy": 0.6181
+        },
+        "lr_c2.0": {
+          "cv_mean_f1": 0.6222,
+          "cv_std_f1": 0.0534,
+          "cv_mean_accuracy": 0.6233
+        },
+        "svm_c0.5": {
+          "cv_mean_f1": 0.6168,
+          "cv_std_f1": 0.052,
+          "cv_mean_accuracy": 0.6181
+        },
+        "svm_c1.0": {
+          "cv_mean_f1": 0.6064,
+          "cv_std_f1": 0.0509,
+          "cv_mean_accuracy": 0.6076
+        }
+      },
+      "word_char_union": {
+        "lr_c1.0": {
+          "cv_mean_f1": 0.5994,
+          "cv_std_f1": 0.0461,
+          "cv_mean_accuracy": 0.6007
+        },
+        "lr_c2.0": {
+          "cv_mean_f1": 0.601,
+          "cv_std_f1": 0.0408,
+          "cv_mean_accuracy": 0.6024
+        },
+        "svm_c0.5": {
+          "cv_mean_f1": 0.5993,
+          "cv_std_f1": 0.0473,
+          "cv_mean_accuracy": 0.6007
+        },
+        "svm_c1.0": {
+          "cv_mean_f1": 0.5918,
+          "cv_std_f1": 0.0507,
+          "cv_mean_accuracy": 0.5938
+        }
+      }
+    },
+    "selected_best_configuration": {
+      "feature_extractor": "char_ngram_3_6",
+      "classifier": "lr_c2.0",
+      "cv_macro_f1": 0.6222
+    },
+    "untouched_test_evaluation": {
+      "accuracy": 0.6123,
+      "macro_f1": 0.6118,
+      "macro_precision": 0.6119,
+      "macro_recall": 0.6118,
+      "per_class_f1": {
+        "credible": 0.6253,
+        "unreliable": 0.5983
+      },
+      "per_class_precision": {
+        "credible": 0.6205,
+        "unreliable": 0.6034
+      },
+      "per_class_recall": {
+        "credible": 0.6302,
+        "unreliable": 0.5934
+      },
+      "confusion_matrix": [
+        [
+          121,
+          71
+        ],
+        [
+          74,
+          108
+        ]
+      ],
+      "inference_latency_ms_per_sample": 1.1342,
+      "fit_time_s": 2.957,
+      "artifact_path": "C:\\Users\\mddan\\Desktop\\VeriNews\\models\\baselines\\hi_tallip_hindi_articles_hardened.joblib"
+    },
+    "baseline_comparison": {
+      "original_baseline_lr_f1": 0.6043,
+      "original_baseline_svm_f1": 0.5614,
+      "hardened_model_f1": 0.6118,
+      "f1_improvement_over_baseline": 0.0075
+    }
+  }
+}

@@ -1,0 +1,2 @@
+"""VeriNews Backend Namespace."""
+

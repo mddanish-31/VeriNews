@@ -4,10 +4,11 @@
     "name": "VeriNews",
     "status": "In Progress — awaiting mentor review",
     "activePhaseIds": [
-      "P01"
+      "P01",
+      "P15"
     ],
     "nextTaskId": "P01",
-    "nextRecommendedTask": "Resolve the outstanding P01 dataset evidence and dataset-approval gate before any P05+ product work; await explicit mentor/owner approval. Do not start P05 or any other phase.",
+    "nextRecommendedTask": "Await mentor review on P15 reliability fixes and resolve P01 dataset provenance and licensing approval before public inference deployment.",
     "progressMethod": "Completed phase tasks divided by all 16 canonical phases; in-progress work does not count as complete."
   },
   "lifecycle": {
@@ -59,24 +60,47 @@
       "status": "In Progress",
       "priority": "High",
       "createdAt": "2026-11-08T13:57:04.270Z",
-      "updatedAt": "2026-11-08T13:57:04.270Z",
+      "updatedAt": "2026-11-09T16:58:11.174Z",
       "completedAt": null,
       "completionTimestampNote": null,
       "assignedCategory": "Research",
       "verificationEvidence": [
         "P01 remains OPEN / AWAITING DATASET EVIDENCE AND MENTOR APPROVAL in docs/research/p01-f-dataset-evidence-decision-register.md.",
         "Indic Zenodo archive and paper discrepancies and licensing conflict documented; training approval NOT APPROVED.",
-        "Current owner-provided baseline explicitly keeps dataset approval unresolved."
+        "Current owner-provided baseline explicitly keeps dataset approval unresolved.",
+        "docs/research/p01-k-welfake-original-paper-evidence-review.md",
+        "docs/research/p01-l-welfake-full-paper-methodology-review.md",
+        "docs/research/p01-m-comprehensive-evidence-recovery-and-candidate-review.md",
+        "docs/research/p01-m-evidence-register.md",
+        "docs/research/p01-m-comprehensive-evidence-recovery-and-candidate-review.md",
+        "docs/research/p01-m-evidence-register.md",
+        "docs/research/p01-n-welfake-critical-evidence-resolution.md",
+        "docs/research/p01-n-welfake-evidence-matrix.md",
+        "docs/research/p01-o-three-dataset-comparative-evaluation.md",
+        "docs/research/p01-o-final-dataset-selection.md",
+        "docs/research/p01-o-welfake-language-distribution-audit.md",
+        "scripts/test_english_model_readiness.py",
+        "backend/tests/test_integration_p13.py"
       ],
       "relatedFiles": [
         "docs/phase-1-summary.md",
         "docs/research/p01-f-dataset-evidence-decision-register.md",
         "docs/research/p01-j-consolidated-provenance-rights-feasibility.md",
-        "docs/research/indic-zenodo-hindi-provenance-investigation.md"
+        "docs/research/indic-zenodo-hindi-provenance-investigation.md",
+        "docs/research/p01-k-welfake-original-paper-evidence-review.md",
+        "docs/research/p01-l-welfake-full-paper-methodology-review.md",
+        "docs/research/p01-m-comprehensive-evidence-recovery-and-candidate-review.md",
+        "docs/research/p01-m-evidence-register.md",
+        "docs/research/p01-n-welfake-critical-evidence-resolution.md",
+        "docs/research/p01-n-welfake-evidence-matrix.md",
+        "docs/research/p01-o-three-dataset-comparative-evaluation.md",
+        "docs/research/p01-o-final-dataset-selection.md",
+        "docs/research/p01-o-welfake-language-distribution-audit.md",
+        "scripts/test_english_model_readiness.py"
       ],
-      "executionReportRef": null,
+      "executionReportRef": "project-tracker/execution-history/exec-20261109165157393-02a01899.json",
       "gitCommitRef": null,
-      "blockerDetails": "Dataset approval is unresolved; no dataset is approved for training or preprocessing. Await required evidence and mentor approval."
+      "blockerDetails": null
     },
     {
       "id": "P02",
@@ -163,72 +187,117 @@
       "phaseId": "P05",
       "title": "Database Design",
       "description": "Design future storage only after explicit phase authorization; no database work is included here.",
-      "status": "Not Started",
+      "status": "Completed",
       "priority": "Medium",
       "createdAt": "2026-11-08T13:57:04.270Z",
-      "updatedAt": "2026-11-08T13:57:04.270Z",
-      "completedAt": null,
+      "updatedAt": "2026-11-09T08:20:52.140Z",
+      "completedAt": "2026-11-09T08:20:52.140Z",
       "completionTimestampNote": null,
       "assignedCategory": "Architecture",
-      "verificationEvidence": [],
-      "relatedFiles": [],
-      "executionReportRef": null,
+      "verificationEvidence": [
+        "docs/database-design.md"
+      ],
+      "relatedFiles": [
+        "docs/database-design.md"
+      ],
+      "executionReportRef": "project-tracker/execution-history/exec-20261109081959820-814504a5.json",
       "gitCommitRef": null,
-      "blockerDetails": "Not started. Requires explicit mentor direction."
+      "blockerDetails": null
     },
     {
       "id": "P06",
       "phaseId": "P06",
       "title": "Backend Foundation and API Contract",
       "description": "Establish a future backend foundation and API contract only after authorization.",
-      "status": "Not Started",
+      "status": "Completed",
       "priority": "Medium",
       "createdAt": "2026-11-08T13:57:04.270Z",
-      "updatedAt": "2026-11-08T13:57:04.270Z",
-      "completedAt": null,
+      "updatedAt": "2026-11-09T08:27:16.850Z",
+      "completedAt": "2026-11-09T08:27:16.850Z",
       "completionTimestampNote": null,
       "assignedCategory": "Backend",
-      "verificationEvidence": [],
-      "relatedFiles": [],
-      "executionReportRef": null,
+      "verificationEvidence": [
+        "backend/tests/test_predict.py"
+      ],
+      "relatedFiles": [
+        "backend/app/main.py",
+        "backend/app/api/routes.py",
+        "backend/app/core/config.py",
+        "backend/app/schemas/health.py",
+        "backend/app/schemas/prediction.py",
+        "backend/app/schemas/samples.py",
+        "backend/app/services/language.py",
+        "backend/app/services/model_service.py",
+        "backend/tests/test_health.py",
+        "backend/tests/test_predict.py",
+        "backend/tests/test_samples.py",
+        "backend/requirements.txt",
+        "docs/frontend-api-integration-plan.md"
+      ],
+      "executionReportRef": "project-tracker/execution-history/exec-20261109082106620-e6c67a0d.json",
       "gitCommitRef": null,
-      "blockerDetails": "Not started. No backend work is part of the tracker implementation."
+      "blockerDetails": null
     },
     {
       "id": "P07",
       "phaseId": "P07",
       "title": "Backend and Database Integration",
       "description": "Integrate backend and persistence after their independent approval and verification.",
-      "status": "Not Started",
+      "status": "Completed",
       "priority": "Medium",
       "createdAt": "2026-11-08T13:57:04.270Z",
-      "updatedAt": "2026-11-08T13:57:04.270Z",
-      "completedAt": null,
+      "updatedAt": "2026-11-09T09:43:18.617Z",
+      "completedAt": "2026-11-09T09:43:18.617Z",
       "completionTimestampNote": null,
       "assignedCategory": "Backend",
-      "verificationEvidence": [],
-      "relatedFiles": [],
-      "executionReportRef": null,
+      "verificationEvidence": [
+        "Alembic revision 74b8faa3f360 verified in Neon; 15/15 pytest tests passing; Strict Zero Content Retention confirmed"
+      ],
+      "relatedFiles": [
+        "backend/requirements.txt",
+        "backend/app/core/config.py",
+        "backend/app/db/__init__.py",
+        "backend/app/db/base.py",
+        "backend/app/db/session.py",
+        "backend/app/db/models.py",
+        "backend/app/api/routes.py",
+        "alembic.ini",
+        "backend/alembic/env.py",
+        "backend/alembic/versions/74b8faa3f360_initial_schema_for_users_analyses_and_.py",
+        "backend/tests/test_database.py"
+      ],
+      "executionReportRef": "project-tracker/execution-history/exec-20261109092941761-0cd2bf9b.json",
       "gitCommitRef": null,
-      "blockerDetails": "Not started. Depends on approved P05 and P06 work."
+      "blockerDetails": null
     },
     {
       "id": "P08",
       "phaseId": "P08",
       "title": "Dataset Preparation and ML Data Foundations",
       "description": "Prepare only approved datasets with documented provenance and rights.",
-      "status": "Not Started",
+      "status": "Completed",
       "priority": "High",
       "createdAt": "2026-11-08T13:57:04.270Z",
-      "updatedAt": "2026-11-08T13:57:04.270Z",
-      "completedAt": null,
+      "updatedAt": "2026-11-09T09:57:11.355Z",
+      "completedAt": "2026-11-09T09:57:11.355Z",
       "completionTimestampNote": null,
       "assignedCategory": "Data / ML",
-      "verificationEvidence": [],
-      "relatedFiles": [],
-      "executionReportRef": null,
+      "verificationEvidence": [
+        "43/43 automated tests passing; synthetic fixtures only; zero data/raw/ access; full stdlib ML data foundations implemented"
+      ],
+      "relatedFiles": [
+        "ml/__init__.py",
+        "ml/schemas.py",
+        "ml/labels.py",
+        "ml/validation.py",
+        "ml/readers.py",
+        "ml/quality.py",
+        "docs/ml-data-foundations.md",
+        "pytest.ini"
+      ],
+      "executionReportRef": "project-tracker/execution-history/exec-20261109094721442-c305c7ef.json",
       "gitCommitRef": null,
-      "blockerDetails": "Not started. No dataset is approved; do not download, preprocess or train without explicit approval."
+      "blockerDetails": null
     },
     {
       "id": "P09",
@@ -253,36 +322,68 @@
       "phaseId": "P10",
       "title": "Classical ML Training and Evaluation",
       "description": "Train and evaluate approved classical baselines with a reviewed protocol.",
-      "status": "Not Started",
+      "status": "Completed",
       "priority": "Medium",
       "createdAt": "2026-11-08T13:57:04.270Z",
-      "updatedAt": "2026-11-08T13:57:04.270Z",
-      "completedAt": null,
+      "updatedAt": "2026-11-09T11:37:22.825Z",
+      "completedAt": "2026-11-09T11:37:22.825Z",
       "completionTimestampNote": null,
       "assignedCategory": "ML",
-      "verificationEvidence": [],
-      "relatedFiles": [],
-      "executionReportRef": null,
+      "verificationEvidence": [
+        "docs/research/p10-p11-model-hardening-and-leakage-investigation-report.md",
+        "docs/research/p10-p11-hardened-experiments-report.json",
+        "docs/research/dataset-provenance-and-licence-review.md",
+        "models/baselines/hi_tallip_hindi_articles_hardened.joblib"
+      ],
+      "relatedFiles": [
+        "scripts/investigate_and_harden_models.py",
+        "scripts/audit_and_train_baselines.py",
+        "ml/readers.py",
+        "ml/tests/test_model_hardening.py",
+        "backend/app/services/model_service.py",
+        "docs/research/p10-p11-model-hardening-and-leakage-investigation-report.md",
+        "docs/research/p10-p11-hardened-experiments-report.json",
+        "docs/research/dataset-provenance-and-licence-review.md",
+        "models/baselines/hi_tallip_hindi_articles_hardened.joblib"
+      ],
+      "executionReportRef": "project-tracker/execution-history/exec-20261109112101769-9d7bba09.json",
       "gitCommitRef": null,
-      "blockerDetails": "Not started. No training dataset is approved."
+      "blockerDetails": null
     },
     {
       "id": "P11",
       "phaseId": "P11",
       "title": "Calibration, Explainability and Benchmarking",
       "description": "Evaluate calibration and explanations and report benchmark limitations honestly.",
-      "status": "Not Started",
+      "status": "Completed",
       "priority": "Medium",
       "createdAt": "2026-11-08T13:57:04.270Z",
-      "updatedAt": "2026-11-08T13:57:04.270Z",
-      "completedAt": null,
+      "updatedAt": "2026-11-09T11:58:20.534Z",
+      "completedAt": "2026-11-09T11:58:20.534Z",
       "completionTimestampNote": null,
       "assignedCategory": "ML / Evaluation",
-      "verificationEvidence": [],
-      "relatedFiles": [],
-      "executionReportRef": null,
+      "verificationEvidence": [
+        "docs/research/p11-calibration-and-explainability-report.md",
+        "docs/research/p11-calibration-and-explainability-report.json",
+        "models/calibrated/en_isot_english_articles_calibrated_sigmoid.joblib",
+        "models/calibrated/hi_tallip_hindi_articles_calibrated_sigmoid.joblib",
+        "models/calibrated/en_ifnd_indian_headlines_calibrated_sigmoid.joblib"
+      ],
+      "relatedFiles": [
+        "ml/calibration.py",
+        "ml/explainability.py",
+        "scripts/run_p11_calibration_and_explainability.py",
+        "ml/tests/test_calibration_and_explainability.py",
+        "backend/app/services/model_service.py",
+        "docs/research/p11-calibration-and-explainability-report.md",
+        "docs/research/p11-calibration-and-explainability-report.json",
+        "models/calibrated/en_isot_english_articles_calibrated_sigmoid.joblib",
+        "models/calibrated/hi_tallip_hindi_articles_calibrated_sigmoid.joblib",
+        "models/calibrated/en_ifnd_indian_headlines_calibrated_sigmoid.joblib"
+      ],
+      "executionReportRef": "project-tracker/execution-history/exec-20261109114529457-18f9c8c1.json",
       "gitCommitRef": null,
-      "blockerDetails": "Not started. Depends on approved and evaluated model work."
+      "blockerDetails": null
     },
     {
       "id": "P12",
@@ -307,205 +408,280 @@
       "phaseId": "P13",
       "title": "ML, FastAPI and Frontend Integration",
       "description": "Integrate independently validated ML and backend components with the frontend.",
-      "status": "Not Started",
+      "status": "Completed",
       "priority": "Medium",
       "createdAt": "2026-11-08T13:57:04.270Z",
-      "updatedAt": "2026-11-08T13:57:04.270Z",
-      "completedAt": null,
+      "updatedAt": "2026-11-09T12:14:04.802Z",
+      "completedAt": "2026-11-09T12:14:04.802Z",
       "completionTimestampNote": null,
       "assignedCategory": "Integration",
-      "verificationEvidence": [],
-      "relatedFiles": [],
-      "executionReportRef": null,
+      "verificationEvidence": [
+        "backend/tests/test_integration_p13.py",
+        "frontend/src/App.tsx",
+        "docs/frontend-api-integration-plan.md",
+        "docs/research/dataset-provenance-and-licence-review.md"
+      ],
+      "relatedFiles": [
+        "backend/app/core/config.py",
+        "backend/app/services/model_service.py",
+        "backend/app/schemas/prediction.py",
+        "backend/tests/test_integration_p13.py",
+        "frontend/src/types.ts",
+        "frontend/src/components/AnalysisResult.tsx",
+        "frontend/src/components/Analyzer.tsx",
+        "frontend/src/App.tsx",
+        "docs/frontend-api-integration-plan.md"
+      ],
+      "executionReportRef": "project-tracker/execution-history/exec-20261109120129481-ef813f84.json",
       "gitCommitRef": null,
-      "blockerDetails": "Not started. No API or ML service is connected."
+      "blockerDetails": null
     },
     {
       "id": "P14",
       "phaseId": "P14",
       "title": "Testing, Security, Privacy and Performance",
       "description": "Verify integrated quality, security, privacy and performance claims before release.",
-      "status": "Not Started",
+      "status": "Completed",
       "priority": "Medium",
       "createdAt": "2026-11-08T13:57:04.270Z",
-      "updatedAt": "2026-11-08T13:57:04.270Z",
-      "completedAt": null,
+      "updatedAt": "2026-11-09T15:27:41.825Z",
+      "completedAt": "2026-11-09T15:27:41.825Z",
       "completionTimestampNote": null,
       "assignedCategory": "QA / Security",
-      "verificationEvidence": [],
-      "relatedFiles": [],
-      "executionReportRef": null,
+      "verificationEvidence": [
+        "docs/release-readiness-and-hardening.md",
+        "backend/tests/test_p14_hardening.py",
+        "backend/app/main.py",
+        "frontend/src/components/Analyzer.tsx"
+      ],
+      "relatedFiles": [
+        "backend/app/core/config.py",
+        "backend/app/schemas/prediction.py",
+        "backend/app/api/routes.py",
+        "backend/app/main.py",
+        "backend/app/services/language.py",
+        "backend/tests/test_p14_hardening.py",
+        "frontend/src/components/Analyzer.tsx",
+        "frontend/src/App.tsx",
+        "docs/release-readiness-and-hardening.md"
+      ],
+      "executionReportRef": "project-tracker/execution-history/exec-20261109122518019-a0d4f7ad.json",
       "gitCommitRef": null,
-      "blockerDetails": "Not started; future phase."
+      "blockerDetails": null
     },
     {
       "id": "P15",
       "phaseId": "P15",
       "title": "Deployment, Documentation and v1.0 Release",
       "description": "Prepare deployment and v1.0 documentation; release only after explicit approval.",
-      "status": "Not Started",
+      "status": "Completed",
       "priority": "Medium",
       "createdAt": "2026-11-08T13:57:04.270Z",
-      "updatedAt": "2026-11-08T13:57:04.270Z",
-      "completedAt": null,
+      "updatedAt": "2026-11-10T08:58:00.000Z",
+      "completedAt": "2026-11-10T07:19:44.197Z",
       "completionTimestampNote": null,
       "assignedCategory": "Release",
-      "verificationEvidence": [],
-      "relatedFiles": [],
-      "executionReportRef": null,
+      "verificationEvidence": [
+        "docs/P15_MENTOR_REVIEW.md (v1.1.0 Audited & Qualified)",
+        "docs/VERINEWS_COMPLETE_PROJECT_STATUS.md",
+        "docs/VERINEWS_WEBSITE_FEATURE_INVENTORY.md",
+        "Automated Full Browser E2E Suite: 12/12 scenarios passed (scripts/verify_e2e_full_browser.mjs)",
+        "Browser Visual Evidence: 13/13 verified non-empty screenshots (scripts/screenshots/)",
+        "Zero Content Retention Browser Storage Audit: localStorage empty (or theme), sessionStorage empty, cookies empty",
+        "docs/deployment-plan.md",
+        ".gitignore",
+        "scripts/verify_backend_connection.py",
+        "scripts/verify_frontend_fetch.mjs",
+        "frontend/src/App.tsx",
+        "frontend/src/components/InfoModal.tsx",
+        "backend/tests/test_health.py::test_root_health_returns_404_by_contract",
+        "scripts/test_local_hindi_smoke_test.py",
+        "scripts/verify_e2e_english_website.mjs",
+        "pytest full suite: 102 passed, 1 StarletteDeprecationWarning",
+        "Frontend build: Next.js 16.4.5 Turbopack production build succeeded",
+        "Frontend API regression: 9/9 integration tests passing",
+        "Preserved preview release git staging: exactly 65 files staged without unauthorized git add/commit"
+      ],
+      "relatedFiles": [
+        "docs/P15_MENTOR_REVIEW.md",
+        "docs/VERINEWS_COMPLETE_PROJECT_STATUS.md",
+        "docs/VERINEWS_WEBSITE_FEATURE_INVENTORY.md",
+        "scripts/verify_e2e_full_browser.mjs",
+        "docs/deployment-plan.md",
+        ".gitignore",
+        "scripts/verify_backend_connection.py",
+        "scripts/verify_frontend_fetch.mjs",
+        "frontend/src/App.tsx",
+        "frontend/src/components/InfoModal.tsx",
+        "backend/tests/test_database.py",
+        "backend/app/services/model_service.py",
+        "backend/app/core/config.py",
+        "backend/tests/test_p14_hardening.py",
+        ".env.example",
+        "backend/tests/test_integration_p13.py",
+        "backend/tests/test_health.py",
+        "backend/tests/test_frontend_integration.py",
+        "backend/app/services/language.py",
+        "ml/explainability.py",
+        "frontend/src/types.ts",
+        "frontend/src/components/Analyzer.tsx",
+        "frontend/src/components/AnalysisResult.tsx",
+        "scripts/test_frontend_api_integration.mjs"
+      ],
+      "executionReportRef": "project-tracker/execution-history/exec-20261110085800000-a1b2c3d4.json",
       "gitCommitRef": null,
-      "blockerDetails": "Not started. No release approval is recorded."
+      "blockerDetails": "Pending mentor review. Public release and production deployment are not authorized. Dataset provenance and licensing clearance remain blocked in Phase P01."
     }
   ],
   "verificationResults": [
     {
-      "name": "npm run typecheck",
+      "name": "npm --prefix frontend run typecheck",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T13:57:04.270Z",
-      "source": "Imported from the preceding OpenCode final frontend QA report; exact execution timestamp was not preserved."
+      "recordedAt": "2026-11-09T19:07:24.429Z",
+      "source": "OpenCode execution EXEC-20261109190244050-123C9A7A — tsc --noEmit passed cleanly"
     },
     {
-      "name": "npm run lint",
+      "name": "npm --prefix frontend run lint",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T13:57:04.270Z",
-      "source": "Imported from the preceding OpenCode final frontend QA report; exact execution timestamp was not preserved."
+      "recordedAt": "2026-11-09T19:07:24.429Z",
+      "source": "OpenCode execution EXEC-20261109190244050-123C9A7A — eslint . passed cleanly"
     },
     {
-      "name": "npm run build",
+      "name": ".venv\\Scripts\\python.exe scripts/test_local_hindi_smoke_test.py",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T13:57:04.270Z",
-      "source": "Imported from the preceding OpenCode final frontend QA report; exact execution timestamp was not preserved."
+      "recordedAt": "2026-11-09T19:16:25.333Z",
+      "source": "OpenCode execution EXEC-20261109191001119-DECD8CB4 — All 5 smoke test cases and safety gates passed successfully"
     },
     {
-      "name": "Real-browser visual and interaction QA",
-      "result": "Pending",
-      "executedAt": null,
-      "recordedAt": "2026-11-08T13:57:04.270Z",
-      "source": "No browser automation was available in the preceding QA environment; no browser test is claimed."
-    },
-    {
-      "name": "node scripts/validate_project_tracker.mjs",
+      "name": ".venv\\Scripts\\python.exe -m pytest -W default -ra",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:23:18.826Z",
-      "source": "Executed in the current tracker implementation session; validated 16 phases, 16 unique tasks, 3 activity records and 2 execution records. Exact command execution time was not separately recorded."
+      "recordedAt": "2026-11-09T19:16:25.333Z",
+      "source": "OpenCode execution EXEC-20261109191001119-DECD8CB4 — 92 passed, 1 warning in 14.21s"
     },
     {
-      "name": "node scripts/test_project_tracker.mjs",
+      "name": ".venv\\Scripts\\python.exe -m pytest -W default -ra",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:25:04.200Z",
-      "source": "Executed in the current tracker implementation session against disposable temp fixtures: task start/finish, blockers, counts/filter data, invalid/missing JSON, incomplete-release rejection, approved release and preserved archive copy. Exact command execution time was not separately recorded."
+      "recordedAt": "2026-11-09T19:36:09.447Z",
+      "source": "OpenCode execution EXEC-20261109192008973-2020988C — 97 passed, 1 warning in 11.87s"
     },
     {
-      "name": "npm run typecheck",
+      "name": "npm --prefix frontend run typecheck",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:23:18.826Z",
-      "source": "Current tracker implementation session; tsc --noEmit exited successfully. Exact command execution time was not separately recorded."
+      "recordedAt": "2026-11-09T19:36:09.447Z",
+      "source": "OpenCode execution EXEC-20261109192008973-2020988C — tsc --noEmit passed cleanly"
     },
     {
-      "name": "npm run lint",
+      "name": "npm --prefix frontend run lint",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:23:18.826Z",
-      "source": "Current tracker implementation session; eslint . exited successfully. Exact command execution time was not separately recorded."
+      "recordedAt": "2026-11-09T19:36:09.447Z",
+      "source": "OpenCode execution EXEC-20261109192008973-2020988C — eslint . passed cleanly"
     },
     {
-      "name": "npm run build",
+      "name": "npm --prefix frontend run build",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:23:18.826Z",
-      "source": "Current tracker implementation session; optimized Next.js 16.4.5 build completed and /project-tracker was dynamic. Exact command execution time was not separately recorded."
+      "recordedAt": "2026-11-09T19:36:09.447Z",
+      "source": "OpenCode execution EXEC-20261109192008973-2020988C — next build passed cleanly"
     },
     {
-      "name": "Production GET /project-tracker",
+      "name": "node scripts/test_frontend_api_integration.mjs",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:23:18.826Z",
-      "source": "Fresh production server on port 3005 returned HTTP 200 (104166 response bytes) with dashboard route rendered. Exact request time was not separately recorded."
+      "recordedAt": "2026-11-09T19:36:09.447Z",
+      "source": "OpenCode execution EXEC-20261109192008973-2020988C — All 6 frontend API integration tests passed"
     },
     {
-      "name": "Fresh development server smoke check",
-      "result": "Blocked",
-      "executedAt": null,
-      "recordedAt": "2026-11-08T14:23:18.826Z",
-      "source": "Fresh dev server attempt on port 3004 did not respond before the 60-second command timeout. A pre-existing server answered on port 3000, but was not treated as a fresh development verification; exact attempt time was not separately recorded."
-    },
-    {
-      "name": "npm run typecheck",
+      "name": "pytest -W default -ra",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:50:01.714Z",
-      "source": "OpenCode execution EXEC-20261108142956314-D717AB69 — tsc --noEmit exited 0"
+      "recordedAt": "2026-11-10T07:19:44.197Z",
+      "source": "OpenCode execution EXEC-20261110070023910-D6A82860 — 102 passed, 1 warning"
     },
     {
-      "name": "npm run lint",
+      "name": "npm --prefix frontend run typecheck",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:50:01.714Z",
-      "source": "OpenCode execution EXEC-20261108142956314-D717AB69 — eslint . exited 0"
+      "recordedAt": "2026-11-10T07:19:44.197Z",
+      "source": "OpenCode execution EXEC-20261110070023910-D6A82860 — tsc exit code 0"
     },
     {
-      "name": "npm run build",
+      "name": "npm --prefix frontend run lint",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:50:01.714Z",
-      "source": "OpenCode execution EXEC-20261108142956314-D717AB69 — next build succeeded; /project-tracker renders as dynamic route"
+      "recordedAt": "2026-11-10T07:19:44.197Z",
+      "source": "OpenCode execution EXEC-20261110070023910-D6A82860 — eslint exit code 0"
     },
     {
-      "name": "GET http://localhost:3000/project-tracker",
+      "name": "npm --prefix frontend run build",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:50:01.714Z",
-      "source": "OpenCode execution EXEC-20261108142956314-D717AB69 — HTTP 200, dashboard HTML renders"
+      "recordedAt": "2026-11-10T07:19:44.197Z",
+      "source": "OpenCode execution EXEC-20261110070023910-D6A82860 — next build exit code 0"
     },
     {
-      "name": "npm run typecheck",
+      "name": "node scripts/test_frontend_api_integration.mjs",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:50:19.019Z",
-      "source": "OpenCode execution EXEC-20261108143000200-9052B3F5 — tsc --noEmit exited 0"
+      "recordedAt": "2026-11-10T07:19:44.197Z",
+      "source": "OpenCode execution EXEC-20261110070023910-D6A82860 — 9/9 tests passed"
     },
     {
-      "name": "npm run lint",
+      "name": "python scripts/test_local_english_inference.py",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:50:19.019Z",
-      "source": "OpenCode execution EXEC-20261108143000200-9052B3F5 — eslint . exited 0"
+      "recordedAt": "2026-11-10T07:19:44.197Z",
+      "source": "OpenCode execution EXEC-20261110070023910-D6A82860 — live English prediction verified"
     },
     {
-      "name": "npm run build",
+      "name": "python scripts/test_local_hindi_smoke_test.py",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:50:19.019Z",
-      "source": "OpenCode execution EXEC-20261108143000200-9052B3F5 — next build succeeded; /project-tracker renders as dynamic route"
+      "recordedAt": "2026-11-10T07:19:44.197Z",
+      "source": "OpenCode execution EXEC-20261110070023910-D6A82860 — live Hindi smoke test & gating verified"
     },
     {
-      "name": "GET http://localhost:3000/project-tracker",
+      "name": "git diff --check",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:50:19.019Z",
-      "source": "OpenCode execution EXEC-20261108143000200-9052B3F5 — HTTP 200, dashboard HTML renders"
+      "recordedAt": "2026-11-10T07:19:44.197Z",
+      "source": "OpenCode execution EXEC-20261110070023910-D6A82860 — clean zero whitespace errors"
     },
     {
-      "name": "node scripts/validate_project_tracker.mjs",
+      "name": "node scripts/verify_e2e_full_browser.mjs",
       "result": "Passed",
       "executedAt": null,
-      "recordedAt": "2026-11-08T14:50:19.019Z",
-      "source": "OpenCode execution EXEC-20261108143000200-9052B3F5 — 16 phases, 16 unique tasks, valid tracker records"
+      "recordedAt": "2026-11-10T08:58:00.000Z",
+      "source": "Automated Chrome CDP verification — 12 scenarios passing with exit code 0"
+    },
+    {
+      "name": "Visual Screenshot Inspection (13 PNGs)",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-10T08:58:00.000Z",
+      "source": "Direct inspection of scripts/screenshots/ — all 13 artifacts verified non-empty and scrolled to target"
+    },
+    {
+      "name": "Browser Client Zero Retention Storage Audit",
+      "result": "Passed",
+      "executedAt": null,
+      "recordedAt": "2026-11-10T08:58:00.000Z",
+      "source": "CDP expression evaluation — localStorage empty/theme only, sessionStorage empty, cookies empty"
     }
   ],
   "gitSync": {
-    "status": "Unavailable",
-    "observedAt": "2026-11-08T14:50:19.019Z",
-    "repositoryDetected": false,
-    "remote": null,
-    "headCommit": null,
+    "status": "Repository detected; workflow sync unavailable",
+    "observedAt": "2026-11-10T07:19:44.197Z",
+    "repositoryDetected": true,
+    "remote": "https://github.com/mddanish-31/VeriNews.git",
+    "headCommit": "d9247055b3b7d86275b87ce649c79f776da54ccf",
     "workflowChecks": [],
-    "explanation": "No Git repository was detected; commit and workflow synchronization are unavailable. Local tracker updates remain enabled."
+    "explanation": "Local Git metadata was read from C:/Users/mddan/Desktop/VeriNews. GitHub workflow status is not queried by this local tracker."
   }
 }

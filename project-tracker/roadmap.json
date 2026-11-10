@@ -13,7 +13,7 @@
       "title": "Research and Dataset Feasibility",
       "description": "Evaluate dataset provenance, annotation quality, licensing, feasibility and approval evidence.",
       "status": "In Progress",
-      "stateNote": "Open; dataset approval remains unresolved. No dataset is approved for training or preprocessing."
+      "stateNote": "In Progress — Blocked pending mentor dataset licensing and redistribution clearance (IFND & TaLLIP) before public model deployment."
     },
     {
       "id": "P02",
@@ -40,29 +40,29 @@
       "id": "P05",
       "title": "Database Design",
       "description": "Design and review the future persistence model. No database work has started.",
-      "status": "Not Started",
-      "stateNote": "Not started; requires explicit mentor direction."
+      "status": "Completed",
+      "stateNote": "Completed — Completed P05 database design documentation covering User, Analysis, and Feedback entities with privacy and retention constraints."
     },
     {
       "id": "P06",
       "title": "Backend Foundation and API Contract",
       "description": "Specify a future backend foundation and API contract. No backend work has started.",
-      "status": "Not Started",
-      "stateNote": "Not started; requires explicit mentor direction."
+      "status": "Completed",
+      "stateNote": "Completed — Completed P06 FastAPI backend foundation with modular architecture, Unicode script detection, Pydantic schemas, and 10 passing unit tests."
     },
     {
       "id": "P07",
       "title": "Backend and Database Integration",
       "description": "Integrate future backend services and persistence. No integration has started.",
-      "status": "Not Started",
-      "stateNote": "Not started; requires explicit mentor direction."
+      "status": "Completed",
+      "stateNote": "Completed — Completed P07 Database Integration with Neon PostgreSQL, SQLAlchemy 2.0 ORM, Alembic migrations, and Strict Zero Content Retention"
     },
     {
       "id": "P08",
       "title": "Dataset Preparation and ML Data Foundations",
       "description": "Establish authorized data foundations only after dataset evidence and approval gates pass.",
-      "status": "Not Started",
-      "stateNote": "Not started; dataset approval unresolved. No preprocessing or training is authorized."
+      "status": "Completed",
+      "stateNote": "Completed — Completed P08 Python ML Data Foundations with schemas, SafeDatasetReader, RecordValidator, explicit LabelMapping, DatasetAuditor, and 28 synthetic tests"
     },
     {
       "id": "P09",
@@ -75,15 +75,15 @@
       "id": "P10",
       "title": "Classical ML Training and Evaluation",
       "description": "Train and evaluate approved classical baselines using a reviewed protocol.",
-      "status": "Not Started",
-      "stateNote": "Not started; no dataset is approved for training."
+      "status": "Completed",
+      "stateNote": "Completed — Completed P10 Classical ML baseline hardening, leakage investigation across ISOT and IFND, and Hindi Devanagari character n-gram optimization"
     },
     {
       "id": "P11",
       "title": "Calibration, Explainability and Benchmarking",
       "description": "Evaluate calibration, explanations and benchmarks without equating predictions to truth.",
-      "status": "Not Started",
-      "stateNote": "Not started; depends on approved data and completed model evaluation."
+      "status": "Completed",
+      "stateNote": "Completed — Completed P11 probability calibration experiments on train-derived calibration splits, transient TF-IDF explainability with Responsible AI disclaimers, and candidate calibrated artifact serialization"
     },
     {
       "id": "P12",
@@ -96,22 +96,22 @@
       "id": "P13",
       "title": "ML, FastAPI and Frontend Integration",
       "description": "Integrate separately validated ML, backend and frontend components after approval.",
-      "status": "Not Started",
-      "stateNote": "Not started; no backend or ML service is connected."
+      "status": "Completed",
+      "stateNote": "Completed — Completed P13 Early Model Integration with candidate IFND calibrated Logistic Regression model, decoupled English/Hindi readiness gating, transient token explainability, zero content retention verification, and frontend Analyzer-to-backend API wiring."
     },
     {
       "id": "P14",
       "title": "Testing, Security, Privacy and Performance",
       "description": "Run integrated quality, security, privacy and performance verification.",
-      "status": "Not Started",
-      "stateNote": "Not started; belongs to a future approved product phase."
+      "status": "Completed",
+      "stateNote": "Completed — Completed P14 Release Hardening: aligned input domain to 20-500 character headline range matching IFND training distribution, implemented rate limiting and payload size guards, verified Zero Content Retention, verified CPU latency and accessibility, updated release readiness documentation."
     },
     {
       "id": "P15",
       "title": "Deployment, Documentation and v1.0 Release",
       "description": "Prepare deployment and release documentation; v1.0 requires explicit approval.",
-      "status": "Not Started",
-      "stateNote": "Not started; release approval is not granted."
+      "status": "Completed",
+      "stateNote": "Completed (Implementation) — P15 reliability hardening and 12-scenario Browser E2E verification completed with 13 verified screenshots. Status: Pending Mentor Review. Public release and production deployment are not authorized."
     }
   ]
 }

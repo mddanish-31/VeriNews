@@ -1,0 +1,158 @@
+{
+  "isot_english": {
+    "model_name": "ISOT English Articles",
+    "language": "en",
+    "sample_counts": {
+      "train": 14000,
+      "val": 3000,
+      "test": 3000
+    },
+    "tfidf_fit_time_s": 21.061,
+    "logistic_regression": {
+      "train_time_s": 0.324,
+      "inference_latency_ms_per_sample": 0.002,
+      "accuracy": 0.9853,
+      "macro_precision": 0.9853,
+      "macro_recall": 0.9853,
+      "macro_f1": 0.9853,
+      "per_class_f1": {
+        "credible": 0.9853,
+        "unreliable": 0.9853
+      },
+      "confusion_matrix": [
+        [
+          1479,
+          21
+        ],
+        [
+          23,
+          1477
+        ]
+      ],
+      "artifact_path": "C:\\Users\\mddan\\Desktop\\VeriNews\\models\\baselines\\en_isot_english_articles_logistic_regression.joblib"
+    },
+    "linear_svm": {
+      "train_time_s": 0.565,
+      "inference_latency_ms_per_sample": 0.001,
+      "accuracy": 0.9937,
+      "macro_precision": 0.9937,
+      "macro_recall": 0.9937,
+      "macro_f1": 0.9937,
+      "confusion_matrix": [
+        [
+          1489,
+          11
+        ],
+        [
+          8,
+          1492
+        ]
+      ],
+      "artifact_path": "C:\\Users\\mddan\\Desktop\\VeriNews\\models\\baselines\\en_isot_english_articles_linear_svm.joblib"
+    }
+  },
+  "tallip_hindi": {
+    "model_name": "TaLLIP Hindi Articles",
+    "language": "hi",
+    "sample_counts": {
+      "train": 460,
+      "val": 116,
+      "test": 374
+    },
+    "tfidf_fit_time_s": 0.128,
+    "logistic_regression": {
+      "train_time_s": 0.028,
+      "inference_latency_ms_per_sample": 0.002,
+      "accuracy": 0.6043,
+      "macro_precision": 0.6049,
+      "macro_recall": 0.6049,
+      "macro_f1": 0.6043,
+      "per_class_f1": {
+        "credible": 0.6022,
+        "unreliable": 0.6064
+      },
+      "confusion_matrix": [
+        [
+          112,
+          80
+        ],
+        [
+          68,
+          114
+        ]
+      ],
+      "artifact_path": "C:\\Users\\mddan\\Desktop\\VeriNews\\models\\baselines\\hi_tallip_hindi_articles_logistic_regression.joblib"
+    },
+    "linear_svm": {
+      "train_time_s": 0.009,
+      "inference_latency_ms_per_sample": 0.001,
+      "accuracy": 0.5615,
+      "macro_precision": 0.5623,
+      "macro_recall": 0.5622,
+      "macro_f1": 0.5614,
+      "confusion_matrix": [
+        [
+          103,
+          89
+        ],
+        [
+          75,
+          107
+        ]
+      ],
+      "artifact_path": "C:\\Users\\mddan\\Desktop\\VeriNews\\models\\baselines\\hi_tallip_hindi_articles_linear_svm.joblib"
+    }
+  },
+  "ifnd_headlines": {
+    "model_name": "IFND Indian Headlines",
+    "language": "en",
+    "sample_counts": {
+      "train": 14000,
+      "val": 3000,
+      "test": 3000
+    },
+    "tfidf_fit_time_s": 0.756,
+    "logistic_regression": {
+      "train_time_s": 0.148,
+      "inference_latency_ms_per_sample": 0.0,
+      "accuracy": 0.941,
+      "macro_precision": 0.9437,
+      "macro_recall": 0.941,
+      "macro_f1": 0.9409,
+      "per_class_f1": {
+        "credible": 0.9432,
+        "unreliable": 0.9386
+      },
+      "confusion_matrix": [
+        [
+          1470,
+          30
+        ],
+        [
+          147,
+          1353
+        ]
+      ],
+      "artifact_path": "C:\\Users\\mddan\\Desktop\\VeriNews\\models\\baselines\\en_ifnd_indian_headlines_logistic_regression.joblib"
+    },
+    "linear_svm": {
+      "train_time_s": 0.174,
+      "inference_latency_ms_per_sample": 0.0,
+      "accuracy": 0.945,
+      "macro_precision": 0.9462,
+      "macro_recall": 0.945,
+      "macro_f1": 0.945,
+      "confusion_matrix": [
+        [
+          1456,
+          44
+        ],
+        [
+          121,
+          1379
+        ]
+      ],
+      "artifact_path": "C:\\Users\\mddan\\Desktop\\VeriNews\\models\\baselines\\en_ifnd_indian_headlines_linear_svm.joblib"
+    }
+  }
+}

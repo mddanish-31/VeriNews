@@ -83,7 +83,7 @@ const modalContent: Record<
         <div>
           <h4 className="font-semibold text-content-primary">Is my submitted text saved?</h4>
           <p className="mt-1">
-            This frontend preview does not submit article text to a backend service. This describes current frontend behavior only and is not a broader privacy guarantee about hosting or infrastructure.
+            No. VeriNews enforces strict Zero Content Retention. Text sent to the analysis endpoint is processed entirely in transient memory and discarded immediately after response serialization. It is never persisted to databases or disk logs.
           </p>
         </div>
         <div>
@@ -91,7 +91,7 @@ const modalContent: Record<
             Why does the analyzer say the model service is not connected?
           </h4>
           <p className="mt-1">
-            The machine learning analysis service is not connected yet. No prediction is generated when you submit text.
+            Machine learning inference for English and Hindi is currently disabled pending formal dataset licensing and deployment clearance. VeriNews never fabricates synthetic scores.
           </p>
         </div>
         <div>
@@ -107,21 +107,21 @@ const modalContent: Record<
   },
   privacy: {
     title: 'Privacy Policy',
-    subtitle: 'Preview information, not a reviewed privacy policy',
+    subtitle: 'Zero Content Retention & Research Preview Guidelines',
     content: (
       <div className="space-y-4 text-sm text-content-secondary leading-relaxed">
         <p>
-          This informational preview is not an officially reviewed privacy policy. The current frontend does not send article text to a backend service when Analyze is selected.
+          VeriNews is an educational research preview. We enforce strict Zero Content Retention across all analysis services.
         </p>
         <ul className="list-disc pl-5 space-y-2">
           <li>
-            <strong className="text-content-primary">Article text:</strong> The Analyze control only shows an unavailable-service message; no analysis request is made by this frontend.
+            <strong className="text-content-primary">Zero Content Retention:</strong> Submitted headlines and news statements are transmitted over encrypted HTTPS solely to evaluate linguistic features in transient server memory and are immediately discarded. No submitted text, tokens, or explanations are stored in databases, server caches, or disk logs.
           </li>
           <li>
-            <strong className="text-content-primary">Theme preference:</strong> The selected theme is saved in browser localStorage when available.
+            <strong className="text-content-primary">Zero Synthetic Predictions:</strong> When machine learning inference is disabled, the service returns an honest unavailable status (HTTP 503) rather than fabricating synthetic or random predictions.
           </li>
           <li>
-            Hosting, server logs and third-party infrastructure have not been independently reviewed here.
+            <strong className="text-content-primary">Theme preference:</strong> The selected theme (Light/Dark) is saved locally in your browser&apos;s localStorage when available.
           </li>
         </ul>
       </div>

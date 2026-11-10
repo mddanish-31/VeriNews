@@ -236,12 +236,11 @@ erDiagram
     ANALYSES {
         uuid id PK
         uuid user_id FK "Nullable (Allows guest analyses)"
-        text input_snippet "First 500 chars"
+        integer input_char_length "100–5,000 chars"
         string detected_language
         string prediction_label
         float confidence_score
         string confidence_tier
-        jsonb influential_tokens
         float latency_ms
         timestamp created_at
     }
@@ -250,7 +249,7 @@ erDiagram
         uuid id PK
         uuid analysis_id FK
         boolean agreed_with_verdict
-        string user_comment
+        string feedback_category "Structured category (e.g. false_positive)"
         timestamp created_at
     }
 ```
