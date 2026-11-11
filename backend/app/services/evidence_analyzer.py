@@ -107,6 +107,11 @@ RULES:
 3. Do NOT invent sources, URLs, or facts outside the provided snippets.
 4. Do NOT output numerical accuracy or confidence percentages.
 5. {lang_instruction}
+6. CONSISTENCY REQUIREMENTS:
+   - Your summary, explanation, and status must NEVER contradict each other.
+   - If status is "Insufficient Evidence" or "Unable to Verify", the summary MUST NOT state the claim as an established fact. Describe it neutrally as an allegation or unverified statement (e.g., "Unsubstantiated claim alleging that..." or "Claim asserting that...").
+   - If status is "Contradicted by Available Evidence", the summary and explanation must clearly state that available reporting contradicts or debunks the claim, and "contradictory_evidence" must list the specific refuting facts.
+   - If status is "Supported by Available Evidence", "supporting_evidence" must contain corroborating facts from the sources.
 
 Respond with ONLY a valid JSON object matching this schema:
 {{
@@ -119,14 +124,14 @@ Respond with ONLY a valid JSON object matching this schema:
   "missing_context": ["<context or limitation 1>", "<context 2>"]
 }}"""
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key={api_key}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"temperature": 0.1, "responseMimeType": "application/json"},
     }
 
     try:
-        with httpx.Client(timeout=15.0) as client:
+        with httpx.Client(timeout=20.0) as client:
             resp = client.post(url, json=payload)
             if resp.status_code == 200:
                 data = resp.json()
@@ -282,6 +287,51 @@ def _deterministic_evidence_concordance(
     }
 
 
+def _enforce_verdict_consistency(result: Dict[str, Any], claim: str, language: str) -> Dict[str, Any]:
+    """Ensure summary, explanation, verdict status, and evidence lists are strictly consistent."""
+    status = result.get("status", "Unable to Verify")
+    summary = result.get("summary", "")
+    explanation = result.get("explanation", "")
+    supporting = result.get("supporting_evidence", [])
+    contradictory = result.get("contradictory_evidence", [])
+    is_hindi = language == "hi"
+
+    # Guard 1: If status is Insufficient Evidence or Unable to Verify, summary must never assert claim as fact
+    if status in ("Insufficient Evidence", "Unable to Verify"):
+        qualifiers = [
+            "unsubstantiated", "alleged", "allegation", "claim", "unverified",
+            "no evidence", "not verified", "cannot be", "insufficient", "no relevant",
+            "अप्रामाणिक", "दावा", "कथित", "पुष्टि नहीं", "कोई सीधा", "साक्ष्य नहीं"
+        ]
+        if not any(q in summary.lower() for q in qualifiers):
+            if is_hindi:
+                result["summary"] = f"अप्रामाणिक दावा जिसमें कहा गया है: {summary or claim[:120]}"
+            else:
+                result["summary"] = f"Unsubstantiated claim asserting that {summary or claim[:120]}"
+        if status == "Insufficient Evidence":
+            result["supporting_evidence"] = []
+
+    # Guard 2: If status is Contradicted by Available Evidence, ensure contradiction is reflected in summary and list
+    elif status == "Contradicted by Available Evidence":
+        if not contradictory and explanation:
+            result["contradictory_evidence"] = [explanation[:180]]
+        contradiction_words = [
+            "debunk", "dispute", "contradict", "false", "hoax", "untrue", "refute",
+            "झूठ", "गलत", "खंडन", "फर्जी", "अफवाह"
+        ]
+        if not any(w in summary.lower() for w in contradiction_words):
+            if is_hindi:
+                result["summary"] = f"उपलब्ध फैक्ट-चेक स्रोतों के अनुसार यह दावा खंडित/गलत पाया गया है: {summary}"
+            else:
+                result["summary"] = f"Available fact-checking reports contradict this claim: {summary}"
+
+    # Guard 3: If contradictory evidence exists and status is Supported, correct to Partially Supported or Contradicted
+    elif status == "Supported by Available Evidence" and len(contradictory) > len(supporting):
+        result["status"] = "Contradicted by Available Evidence"
+
+    return result
+
+
 def analyze_news_with_evidence(
     claim_text: str,
     evidence_sources: List[Dict[str, Any]],
@@ -319,6 +369,13 @@ def analyze_news_with_evidence(
     raw_status = analysis_result.get("status")
     if raw_status not in ALLOWED_STATUSES:
         analysis_result["status"] = "Unable to Verify"
+
+    # Enforce summary-verdict agreement and evidence consistency
+    analysis_result = _enforce_verdict_consistency(
+        result=analysis_result,
+        claim=claim_text,
+        language=detected_language,
+    )
 
     return analysis_result
 

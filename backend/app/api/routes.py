@@ -191,11 +191,16 @@ async def verify_news(request: VerificationRequest) -> VerificationResponse:
             input_type = "url"
         except URLExtractionException as exc:
             raise HTTPException(status_code=exc.status_code, detail=exc.message) from exc
-    elif input_type == "article" or len(raw_text) > 500:
+    elif input_type == "article":
         if len(raw_text) < 20:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Article text must contain at least 20 characters.",
+            )
+        if len(raw_text) > 10000:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Article text cannot exceed 10,000 characters.",
             )
         claim_text = raw_text[:600]
         first_line = raw_text.splitlines()[0].strip()
@@ -207,6 +212,11 @@ async def verify_news(request: VerificationRequest) -> VerificationResponse:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="News headline or claim statement must contain at least 10 characters.",
+            )
+        if len(raw_text) > 500:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="News headline or claim statement cannot exceed 500 characters. For longer text, please select Full Article mode.",
             )
         claim_text = raw_text
         input_type = "headline"

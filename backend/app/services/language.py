@@ -1,13 +1,14 @@
 import re
-from typing import Set, Tuple
+from typing import Optional, Set, Tuple
 
 
 class UnsupportedLanguageException(Exception):
     """Raised when an input text has an unsupported script or ambiguous language."""
 
-    def __init__(self, message: str):
+    def __init__(self, message: str, detected_lang: Optional[str] = None):
         super().__init__(message)
         self.message = message
+        self.detected_lang = detected_lang
 
 
 # Distinctive, high-specificity Indic words commonly used in Romanized Hindi (Hinglish).
@@ -20,6 +21,56 @@ ROMANIZED_HINDI_INDIC_WORDS: Set[str] = {
     "jhooth", "sach", "lekin", "magar", "bahut", "shuru", "pehle",
     "samay", "aur", "yeh", "woh", "kaise", "jaise", "waise", "kaha",
 }
+
+# Distinctive stopwords for common non-supported European languages
+FRENCH_DISTINCTIVE_WORDS: Set[str] = {
+    "le", "la", "les", "des", "du", "une", "dans", "pour", "avec", "sur",
+    "est", "sont", "cette", "ces", "par", "qui", "que", "mais", "nous",
+    "vous", "ils", "elles", "leur", "leurs", "aux", "dont", "comme", "aussi",
+}
+
+SPANISH_DISTINCTIVE_WORDS: Set[str] = {
+    "el", "la", "los", "las", "un", "una", "unos", "unas", "del", "por",
+    "para", "con", "este", "esta", "estos", "estas", "como", "pero",
+    "sobre", "entre", "cuando", "donde", "quien", "sus", "hace",
+}
+
+GERMAN_DISTINCTIVE_WORDS: Set[str] = {
+    "der", "die", "das", "den", "dem", "des", "ein", "eine", "einer", "einem",
+    "einen", "und", "nicht", "mit", "von", "fuer", "auf", "ist", "sind",
+    "nach", "wie", "ueber", "oder", "aber", "auch", "wenn",
+}
+
+# Core high-frequency English function words
+ENGLISH_CORE_WORDS: Set[str] = {
+    "the", "be", "to", "of", "and", "a", "in", "that", "have", "it",
+    "for", "not", "on", "with", "he", "as", "you", "do", "at", "this",
+    "but", "by", "from", "they", "we", "or", "an", "will", "my", "one",
+    "all", "would", "there", "their", "what", "so", "up", "out", "if",
+    "about", "who", "get", "which", "go", "when", "make", "can", "like",
+    "time", "no", "just", "him", "know", "take", "into", "year", "your",
+    "good", "some", "could", "them", "see", "other", "than", "then", "now",
+    "look", "only", "its", "over", "also", "after", "how", "our", "work",
+    "first", "well", "way", "even", "new", "want", "because", "any", "these",
+    "give", "most", "us", "is", "are", "was", "were", "has", "had",
+}
+
+
+def detect_unsupported_latin_language(text: str) -> Optional[str]:
+    """Check if Latin-script text matches an unsupported European language."""
+    tokens = set(re.findall(r"[a-zà-ÿ]{2,}", text.lower()))
+    en_count = len(tokens & ENGLISH_CORE_WORDS)
+    fr_count = len(tokens & FRENCH_DISTINCTIVE_WORDS)
+    es_count = len(tokens & SPANISH_DISTINCTIVE_WORDS)
+    de_count = len(tokens & GERMAN_DISTINCTIVE_WORDS)
+
+    if fr_count >= 2 and fr_count > en_count:
+        return "French"
+    if es_count >= 2 and es_count > en_count:
+        return "Spanish"
+    if de_count >= 2 and de_count > en_count:
+        return "German"
+    return None
 
 
 def is_devanagari_char(char: str) -> bool:
@@ -86,8 +137,19 @@ def detect_script_and_language(
     if other_alpha_count > (devanagari_count + latin_count):
         raise UnsupportedLanguageException(
             "Unsupported script detected. VeriNews currently supports English (Latin script) "
-            "and Hindi (Devanagari script) only. Other scripts are not supported."
+            "and Hindi (Devanagari script) only. Other scripts are not supported.",
+            detected_lang="Unsupported Script",
         )
+
+    # Check for unsupported European Latin languages (French, Spanish, German, etc.)
+    if latin_count > 0 and (devanagari_count == 0 or latin_count > devanagari_count):
+        unsupported_lang = detect_unsupported_latin_language(text)
+        if unsupported_lang:
+            raise UnsupportedLanguageException(
+                f"The submitted text appears to be in {unsupported_lang}, which is not currently supported by VeriNews. "
+                "VeriNews currently supports news verification in English and Hindi.",
+                detected_lang=unsupported_lang,
+            )
 
     # Check for Romanized Hindi (Hinglish) when Latin characters dominate or when hint is English/auto
     if devanagari_count == 0 or latin_count > devanagari_count:
@@ -95,7 +157,8 @@ def detect_script_and_language(
             if allow_romanized_hindi:
                 return "hi", "Hindi (Romanized)"
             raise UnsupportedLanguageException(
-                "Romanized Hindi (Hinglish) is not supported yet. Please enter Hindi using Devanagari script."
+                "Romanized Hindi (Hinglish) is not supported yet. Please enter Hindi using Devanagari script.",
+                detected_lang="Romanized Hindi",
             )
 
     # Validate against explicit language hints

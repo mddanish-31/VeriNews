@@ -223,16 +223,30 @@ def search_web_evidence(
     # 2. Live Google News RSS (accredited media coverage)
     news_results = search_google_news_rss(clean_q, language=language, max_results=4)
 
-    # 3. Wikipedia API (encyclopedic background)
+    # 3. Targeted fact-check query to capture accredited debunking / verification coverage
+    fc_q = f"{clean_q} fact check" if language != "hi" else f"{clean_q} फैक्ट चेक"
+    fc_results = search_google_news_rss(fc_q, language=language, max_results=3)
+
+    # 4. Wikipedia API (encyclopedic background)
     wiki_results = search_wikipedia_api(clean_q, language=language, max_results=2)
 
-    # Combine & deduplicate by domain / title
-    combined = list(news_results)
-    seen_titles = {r["title"].lower() for r in combined}
+    # Combine & deduplicate by normalized title and URL
+    combined: List[Dict[str, Any]] = []
+    seen_titles: set = set()
+    seen_urls: set = set()
 
-    for wr in wiki_results:
-        if wr["title"].lower() not in seen_titles:
-            combined.append(wr)
-            seen_titles.add(wr["title"].lower())
+    for item in news_results + fc_results + wiki_results:
+        title = item.get("title", "")
+        url_val = item.get("url", "")
+        t_key = re.sub(r"[^a-zA-Z0-9\u0900-\u097F]", "", title.lower())[:40]
+        u_key = url_val.split("?")[0].rstrip("/")
+        if t_key and t_key in seen_titles:
+            continue
+        if u_key and u_key in seen_urls:
+            continue
+        seen_titles.add(t_key)
+        if u_key:
+            seen_urls.add(u_key)
+        combined.append(item)
 
     return combined[:max_results]
