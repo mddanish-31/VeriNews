@@ -2,42 +2,104 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Brunson';
+  src: url('/fonts/brunson/Brunson.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Brunson Rough';
+  src: url('/fonts/brunson/Brunson-Rough.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Heading Now';
+  src: url('/fonts/heading-now/HeadingNow-58Heavy.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Heading Now SemiCondensed';
+  src: url('/fonts/heading-now/HeadingNow-48Heavy.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Impact';
+  src: url('/fonts/Impact.ttf') format('truetype'),
+       url('/fonts/impact/Impact.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Impact Extravagant';
+  src: url('/fonts/Impact-Extravagant.ttf') format('truetype'),
+       url('/fonts/impact/Impact-Extravagant.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
+  --font-brunson: 'Brunson', sans-serif;
+  --font-heading-now: 'Heading Now', sans-serif;
+  --font-impact: 'Impact', 'Impact Extravagant', sans-serif;
+  --font-impact-extravagant: 'Impact Extravagant', 'Impact', sans-serif;
   --bg-main: #F8F9FF;
   --bg-surface: #FFFFFF;
   --bg-surface-secondary: #F0F2FF;
   --bg-surface-elevated: #FFFFFF;
   --text-primary: #111426;
-  --text-secondary: #59627A;
-  --text-muted: #8A94A6;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  --heading-primary: #111426;
+  --heading-secondary: #5540D9;
   --color-brand-blue: #356BFF;
   --color-brand-blue-hover: #2655DB;
-  --color-brand-violet: #6948F5;
-  --border-color: #E2E6F2;
-  --border-subtle: #EDF0F8;
-  --color-success: #18A875;
+  --color-brand-violet: #5540D9;
+  --border-color: #DCE3F1;
+  --border-subtle: #E8EDF8;
+  --color-success: #059669;
   --color-success-bg: #E8F8F2;
-  --color-success-border: #B7E8D5;
-  --color-warning: #E6A12B;
+  --color-success-border: #A7F3D0;
+  --color-warning: #D97706;
   --color-warning-bg: #FEF7EB;
-  --color-danger: #E64B5D;
+  --color-danger: #DC2626;
   --color-danger-bg: #FDF0F2;
-  --color-danger-border: #F7C6CC;
+  --color-danger-border: #FECACA;
 }
 
 .dark {
+  --font-brunson: 'Brunson', sans-serif;
+  --font-heading-now: 'Heading Now', sans-serif;
+  --font-impact: 'Impact', 'Impact Extravagant', sans-serif;
+  --font-impact-extravagant: 'Impact Extravagant', 'Impact', sans-serif;
   --bg-main: #090B14;
   --bg-surface: #111525;
   --bg-surface-secondary: #171D31;
   --bg-surface-elevated: #1C233B;
-  --text-primary: #F4F6FF;
-  --text-secondary: #A7B0C8;
-  --text-muted: #6B7694;
-  --color-brand-blue: #4388FF;
-  --color-brand-blue-hover: #5B98FF;
-  --color-brand-violet: #8A68FF;
+  --text-primary: #F7F7FF;
+  --text-secondary: #C8D1EC;
+  --text-muted: #8E9AB8;
+  --heading-primary: #F7F7FF;
+  --heading-secondary: #9168FF;
+  --color-brand-blue: #5B98FF;
+  --color-brand-blue-hover: #7CAEFF;
+  --color-brand-violet: #9168FF;
   --border-color: #29314A;
-  --border-subtle: #1F2538;
+  --border-subtle: rgba(174, 160, 255, 0.25);
   --color-success: #36C997;
   --color-success-bg: rgba(54, 201, 151, 0.14);
   --color-success-border: rgba(54, 201, 151, 0.32);
@@ -129,6 +191,82 @@ button:focus-visible, a:focus-visible, select:focus-visible, textarea:focus-visi
 
 .hero-glow-dark {
   background: radial-gradient(circle at 65% 50%, rgba(138, 104, 255, 0.15) 0%, rgba(67, 136, 255, 0.18) 40%, rgba(9, 11, 20, 0) 75%);
+}
+
+/* Reusable Glassmorphism Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(215, 223, 240, 0.95);
+  box-shadow: 0 4px 20px -2px rgba(17, 20, 38, 0.05), 0 1px 3px rgba(17, 20, 38, 0.03);
+}
+
+.dark .glass-panel {
+  background: linear-gradient(135deg, rgba(20, 28, 56, 0.55) 0%, rgba(12, 17, 36, 0.40) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+}
+
+.glass-panel-elevated {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(210, 219, 238, 0.95);
+  box-shadow: 0 10px 30px -4px rgba(17, 20, 38, 0.08), 0 2px 6px rgba(17, 20, 38, 0.04);
+}
+
+.dark .glass-panel-elevated {
+  background: linear-gradient(135deg, rgba(28, 38, 72, 0.65) 0%, rgba(16, 22, 46, 0.50) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* Impact Typography System Utilities */
+.section-heading {
+  font-family: var(--font-impact), 'Impact', sans-serif;
+  letter-spacing: 0.015em;
+  line-height: 1.12;
+  overflow: visible;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+.heading-impact {
+  font-family: var(--font-impact), 'Impact', sans-serif;
+  letter-spacing: 0.015em;
+  line-height: 1.12;
+  overflow: visible;
+  overflow-wrap: break-word;
+}
+
+.glass-panel-interactive {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.glass-panel-interactive:hover {
+  border-color: rgba(53, 107, 255, 0.35);
+  box-shadow: 0 12px 35px -5px rgba(53, 107, 255, 0.15);
+}
+
+.dark .glass-panel-interactive:hover {
+  border-color: rgba(0, 240, 255, 0.35);
+  box-shadow: 0 12px 35px -5px rgba(0, 240, 255, 0.18);
+}
+
+/* Form element accessibility & text cursor integrity */
+input, textarea, select, [contenteditable="true"] {
+  cursor: text !important;
+}
+
+button, a, [role="button"], label {
+  cursor: pointer;
 }
 
 @media (prefers-reduced-motion: reduce) {
