@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter, Manrope, Noto_Sans_Devanagari } from 'next/font/google'
 import './globals.css'
+import { SmoothScrollProvider } from '../components/providers/SmoothScrollProvider'
+import { ElectricArcCursor } from '../components/ui/electric-arc-cursor'
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -54,7 +56,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="min-h-screen bg-main text-content-primary antialiased selection:bg-brand-blue/20">
-        {children}
+        <ElectricArcCursor />
+        <SmoothScrollProvider>
+          {children}
+        </SmoothScrollProvider>
       </body>
     </html>
   )
