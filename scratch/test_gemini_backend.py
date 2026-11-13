@@ -1,4 +1,4 @@
-"""Test the backend /api/verify endpoint using the existing implementation and configured model."""
+"""Isolated integration test verifying pipeline with gemini-3.5-flash-lite without changing production code."""
 
 import os
 import sys
@@ -11,32 +11,105 @@ load_dotenv(ROOT_DIR / ".env")
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
+key = os.getenv("GEMINI_API_KEY")
+
+from backend.app.services import evidence_analyzer
+
+# Temporarily mock the URL inside _analyze_with_gemini to gemini-3.5-flash-lite in isolation
+original_func = evidence_analyzer._analyze_with_gemini
+
+def isolated_analyze_with_gemini(claim, evidence_sources, language, api_key):
+    # Using gemini-3.5-flash-lite
+    import httpx, json
+    evidence_text = "\n\n".join(
+        f"[Source {i+1}]: {src.get('publisher', 'Web')}\n"
+        f"Title: {src.get('title', '')}\n"
+        f"URL: {src.get('url', '')}\n"
+        f"Snippet: {src.get('snippet', '')}"
+        for i, src in enumerate(evidence_sources)
+    )
+    lang_instruction = (
+        "Respond in fluent Hindi (Devanagari script) for explanation and summary."
+        if language == "hi"
+        else "Respond in clear English."
+    )
+    prompt = f"""You are the VeriNews AI Evidence Analyst. Your task is to verify an alleged news claim strictly using the retrieved live web evidence provided below.
+
+CLAIM TO VERIFY:
+\"\"\"{claim}\"\"\"
+
+LIVE WEB EVIDENCE RETRIEVED:
+\"\"\"{evidence_text}\"\"\"
+
+RULES:
+1. You must select EXACTLY ONE status from this list:
+   - "Supported by Available Evidence"
+   - "Contradicted by Available Evidence"
+   - "Partially Supported"
+   - "Misleading or Missing Context"
+   - "Insufficient Evidence"
+   - "Unable to Verify"
+2. Never force the claim into Fake or Real.
+3. Do NOT invent sources, URLs, or facts outside the provided snippets.
+4. Do NOT output numerical accuracy or confidence percentages.
+5. {lang_instruction}
+
+Respond with ONLY a valid JSON object matching this schema:
+{{
+  "status": "<one of the 6 allowed statuses>",
+  "summary": "<1-2 sentence summary of the news claim>",
+  "claim_checked": "<concise statement of the specific core claim>",
+  "explanation": "<objective analysis comparing the claim against retrieved evidence>",
+  "supporting_evidence": ["<specific corroborating fact 1>", "<specific fact 2>"],
+  "contradictory_evidence": ["<specific contradictory or debunking fact, if any>"],
+  "missing_context": ["<context or limitation 1>", "<context 2>"]
+}}"""
+
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key={api_key}"
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {"temperature": 0.1, "responseMimeType": "application/json"},
+    }
+
+    try:
+        with httpx.Client(timeout=20.0) as client:
+            resp = client.post(url, json=payload)
+            if resp.status_code == 200:
+                data = resp.json()
+                raw_text = data["candidates"][0]["content"]["parts"][0]["text"]
+                parsed = json.loads(raw_text)
+                if parsed.get("status") in evidence_analyzer.ALLOWED_STATUSES:
+                    return parsed
+    except Exception as exc:
+        print("Isolated call failed:", exc)
+    return None
+
+evidence_analyzer._analyze_with_gemini = isolated_analyze_with_gemini
+
 from fastapi.testclient import TestClient
 from backend.app.main import app
 
 client = TestClient(app)
 
-print("1. Checking GEMINI_API_KEY in environment...")
-key_present = bool(os.getenv("GEMINI_API_KEY"))
-print(f"   GEMINI_API_KEY detected: {key_present}")
+print("\n--- Testing Full /api/verify Endpoint with gemini-3.5-flash-lite in isolation ---")
+claim = "ISRO launched Chandrayaan-3 mission exploring lunar south pole"
+res = client.post("/api/verify", json={"input_type": "headline", "text": claim, "language_hint": "en"})
 
-print("\n2. Executing /api/verify with a verifiable claim...")
-claim_payload = {
-    "input_type": "headline",
-    "text": "ISRO Chandrayaan mission successfully explores the lunar surface",
-    "language_hint": "en",
-}
+print(f"HTTP Status: {res.status_code}")
+assert res.status_code == 200
+data = res.json()
+print("Verification Status:", data.get("status"))
+print("Summary:", data.get("summary"))
+print("Explanation:", data.get("explanation")[:140] + "...")
+print("Sources Count:", len(data.get("sources", [])))
 
-response = client.post("/api/verify", json=claim_payload)
-print(f"   HTTP Status: {response.status_code}")
-data = response.json()
-print(f"   Response Status: {data.get('status')}")
-print(f"   Summary: {data.get('summary')}")
-print(f"   Explanation: {data.get('explanation')[:120]}...")
-print(f"   Sources retrieved: {len(data.get('sources', []))}")
-print(f"   Missing context items: {data.get('missing_context', [])}")
+# Verify that deterministic fallback was NOT used
+is_fallback = any("deterministic" in str(ctx).lower() for ctx in data.get("missing_context", []))
+# Also check explanation text does not have the deterministic template
+is_det_template = "The core events described are corroborated by independent coverage" in data.get("explanation", "")
+print("Deterministic fallback notice in missing_context:", is_fallback)
+print("Deterministic template in explanation:", is_det_template)
 
-# Check whether deterministic fallback was active
-fallback_used = any("deterministic" in str(ctx).lower() for ctx in data.get("missing_context", []))
-print(f"\n3. Fallback used: {fallback_used}")
-
+assert not is_fallback, "Deterministic fallback should not be active!"
+assert not is_det_template, "Explanation should be genuinely generated by Gemini!"
+print("\nSUCCESS: Verified that genuine Gemini generation is used and deterministic fallback was NOT used!")

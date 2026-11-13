@@ -17,3 +17,30 @@ models/
 # Local-only OpenCode tracker records — retained locally, not published.
 /project-tracker/activity-log.json
 /project-tracker/execution-history/
+
+# Category 08 - Repository Hygiene
+
+# Graphify generated cache
+graphify-out/cache/
+
+# Local scratch artifacts
+/scratch/all_190_files.json
+/scratch/audit_table.json
+/scratch/impact.zip
+/scratch/impact_extracted/
+
+# Temporary root audit dumps
+/category1-dependency-diff.txt
+/git-diff-summary.txt
+/git-full-status.txt
+
+# Stale root configuration
+/components.json
+
+# Unused local font copies (not the complete fonts directory)
+/frontend/src/app/fonts/One Slice.otf
+/frontend/src/app/fonts/OneSlice.otf
+
+# Local-only legacy component and demo
+/frontend/src/components/hero/ParticleWaveCanvas.tsx
+/frontend/src/components/ui/demo.tsx
