@@ -14,6 +14,9 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
 )
+# Suppress outbound request URL logging from httpx/httpcore at INFO level to preserve Zero Content Retention
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)
 logger = logging.getLogger("verinews.api")
 
 app = FastAPI(
@@ -117,13 +120,22 @@ async def security_and_rate_limit_middleware(request: Request, call_next):
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     """Sanitize and format Pydantic validation errors cleanly."""
     error_messages = []
+    is_language_hint_error = False
     for error in exc.errors():
-        field = " -> ".join(str(loc) for loc in error.get("loc", []))
+        loc = error.get("loc", [])
+        if "language_hint" in loc:
+            is_language_hint_error = True
+        field = " -> ".join(str(item) for item in loc)
         msg = error.get("msg", "Invalid value")
         error_messages.append(f"{field}: {msg}")
 
+    status_code = (
+        status.HTTP_422_UNPROCESSABLE_CONTENT
+        if is_language_hint_error
+        else status.HTTP_400_BAD_REQUEST
+    )
     return JSONResponse(
-        status_code=status.HTTP_400_BAD_REQUEST,
+        status_code=status_code,
         content={
             "detail": "; ".join(error_messages),
             "error_code": "VALIDATION_ERROR",
@@ -149,7 +161,11 @@ async def generic_exception_handler(request: Request, exc: Exception):
     Catch unhandled exceptions without leaking Python stack traces or user text
     to the client or logs.
     """
-    logger.error("Unhandled server exception: %s", type(exc).__name__, exc_info=True)
+    logger.error(
+        "Unhandled server exception: path=%s, error_type=%s",
+        request.url.path,
+        type(exc).__name__,
+    )
     return JSONResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         content={

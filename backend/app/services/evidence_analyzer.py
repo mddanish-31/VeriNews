@@ -124,7 +124,8 @@ Respond with ONLY a valid JSON object matching this schema:
   "missing_context": ["<context or limitation 1>", "<context 2>"]
 }}"""
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key={api_key}"
+    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent"
+    headers = {"x-goog-api-key": api_key}
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"temperature": 0.1, "responseMimeType": "application/json"},
@@ -132,7 +133,7 @@ Respond with ONLY a valid JSON object matching this schema:
 
     try:
         with httpx.Client(timeout=20.0) as client:
-            resp = client.post(url, json=payload)
+            resp = client.post(url, headers=headers, json=payload)
             if resp.status_code == 200:
                 data = resp.json()
                 raw_text = data["candidates"][0]["content"]["parts"][0]["text"]
@@ -140,7 +141,12 @@ Respond with ONLY a valid JSON object matching this schema:
                 if parsed.get("status") in ALLOWED_STATUSES:
                     return parsed
     except Exception as exc:
-        logger.warning("Gemini AI synthesis fallback: %s", exc)
+        logger.warning(
+            "Gemini AI synthesis fallback: language=%s, sources_count=%d, error_type=%s",
+            language,
+            len(evidence_sources),
+            type(exc).__name__,
+        )
     return None
 
 

@@ -66,7 +66,12 @@ def search_google_news_rss(
                 return []
             xml_text = resp.text
     except Exception as exc:
-        logger.warning("Google News RSS request error for query '%s': %s", query, exc)
+        logger.warning(
+            "Google News RSS request error: query_length=%d, language=%s, error_type=%s",
+            len(query),
+            language,
+            type(exc).__name__,
+        )
         return []
 
     results: List[Dict[str, Any]] = []
@@ -118,7 +123,11 @@ def search_google_news_rss(
                 }
             )
     except Exception as exc:
-        logger.warning("XML parsing error for Google News RSS: %s", exc)
+        logger.warning(
+            "XML parsing error for Google News RSS: query_length=%d, error_type=%s",
+            len(query),
+            type(exc).__name__,
+        )
 
     return results
 
@@ -167,7 +176,12 @@ def search_wikipedia_api(
                 )
             return results
     except Exception as exc:
-        logger.warning("Wikipedia search error for query '%s': %s", query, exc)
+        logger.warning(
+            "Wikipedia search error: query_length=%d, language=%s, error_type=%s",
+            len(query),
+            language,
+            type(exc).__name__,
+        )
         return []
 
 
@@ -218,7 +232,11 @@ def search_web_evidence(
                     if results:
                         return results
         except Exception as exc:
-            logger.warning("Tavily search fallback to standard web search: %s", exc)
+            logger.warning(
+                "Tavily search fallback to standard web search: query_length=%d, error_type=%s",
+                len(clean_q),
+                type(exc).__name__,
+            )
 
     # 2. Live Google News RSS (accredited media coverage)
     news_results = search_google_news_rss(clean_q, language=language, max_results=4)

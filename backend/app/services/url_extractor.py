@@ -172,7 +172,11 @@ def validate_url_safety(url: str) -> Tuple[bool, str]:
     except socket.gaierror:
         return False, f"The domain '{hostname}' could not be resolved. Please verify the URL or ensure the website is online."
     except Exception as exc:
-        logger.warning("Host resolution failed for '%s': %s", hostname, exc)
+        logger.warning(
+            "Host resolution failed during URL validation: url_length=%d, error_type=%s",
+            len(trimmed),
+            type(exc).__name__,
+        )
         return False, f"Could not connect to '{hostname}'. Please check the URL syntax and network connectivity."
 
     if not addr_info:
@@ -509,7 +513,11 @@ def fetch_news_url(url: str) -> Dict[str, str]:
                 status_code=502,
             )
     except Exception as exc:
-        logger.warning("Error fetching URL '%s': %s", url, exc)
+        logger.warning(
+            "Unexpected error fetching URL: url_length=%d, error_type=%s",
+            len(url),
+            type(exc).__name__,
+        )
         raise URLExtractionException(
             message=f"Could not connect to {domain}. Please verify the URL or paste the headline/text directly.",
             status_code=502,
